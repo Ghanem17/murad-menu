@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <base href="../">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>صحون · مراد</title>
+<title>مراد · Murad Restaurant &amp; Cafe</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;700&family=Readex+Pro:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
@@ -24,8 +24,6 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .hero{position:relative;padding:calc(28px + env(safe-area-inset-top)) 20px 26px;text-align:center;overflow:hidden;
   background:repeating-radial-gradient(circle at 50% -40%,transparent 0 38px,#ffffff06 38px 39px),radial-gradient(90% 70% at 50% 0,#1A2E44,var(--cloth))}
 .hero img{width:74px;filter:drop-shadow(0 8px 24px #000a)}
-.hero h1{font-family:var(--display);font-weight:700;font-size:30px;margin:10px 0 4px;letter-spacing:0}
-.hero p{margin:0;color:var(--mute);font-size:13px}
 /* sticky plate rail */
 .rail{position:sticky;top:0;z-index:5;background:linear-gradient(var(--cloth) 78%,transparent);padding:10px 0 14px}
 .rail-in{display:flex;gap:14px;overflow-x:auto;padding:0 18px;scrollbar-width:none;scroll-snap-type:x proximity}
@@ -41,8 +39,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 @keyframes spin{to{transform:rotate(360deg)}}
 /* best sellers: big spinning plates */
 .best{padding:8px 0 10px}
-.kick{font-size:11px;letter-spacing:2px;color:var(--red);font-weight:600;padding:0 20px}
-.best h2{font-family:var(--display);font-size:24px;margin:4px 20px 0;font-weight:700}
+.best .sec-h{padding:10px 20px 0}
 .carousel{display:flex;gap:6px;overflow-x:auto;scroll-snap-type:x mandatory;padding:14px 20px 6px;scrollbar-width:none}
 .carousel::-webkit-scrollbar{display:none}
 .big{flex:none;width:58%;scroll-snap-align:center;text-align:center}
@@ -95,9 +92,8 @@ section.sec{padding:0 14px;scroll-margin-top:170px}
 .serve h4{font-family:var(--display);font-size:26px;margin:0}
 .serve .en{color:var(--mute);font-size:13px;margin-top:2px}
 .serve .ds{color:#C9D3DC;font-size:14px;line-height:1.7;margin:12px 0 0}
-.serve .row{display:flex;align-items:center;justify-content:space-between;margin-top:18px;gap:10px}
+.serve .row{display:flex;align-items:center;justify-content:center;margin-top:18px;gap:10px}
 .serve .pr{font-size:22px;font-weight:600}.serve .pr i{font-style:normal;font-size:13px;color:var(--mute);margin-inline-start:4px}
-.add{background:var(--red);color:#fff;border-radius:30px;padding:12px 20px;font-weight:600;font-size:14px}
 .x{position:absolute;z-index:2;top:12px;inset-inline-start:12px;width:36px;height:36px;border-radius:50%;background:#0B1320b3;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:grid;place-items:center;font-size:20px;line-height:1;color:#fff}
 .open .veil{opacity:1;pointer-events:auto}
 .open .serve{pointer-events:auto}
@@ -111,11 +107,8 @@ section.sec{padding:0 14px;scroll-margin-top:170px}
 .search input::placeholder{color:var(--mute)}
 .search input::-webkit-search-cancel-button{display:none}
 .search button{width:32px;height:32px;border-radius:50%;background:#ffffff14;font-size:17px;line-height:1;display:grid;place-items:center;flex:none}
-.found{padding:2px 20px 0;color:var(--mute);font-size:13px}
 .empty{text-align:center;color:var(--mute);padding:50px 30px;font-size:15px;line-height:1.8}
 .empty b{display:block;color:var(--cream);font-family:var(--display);font-size:22px;margin-bottom:4px}
-.toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));left:50%;transform:translate(-50%,120px);background:var(--cream);color:var(--cloth);padding:10px 18px;border-radius:30px;font-size:13px;font-weight:600;transition:transform .35s;z-index:30}
-.toast.on{transform:translate(-50%,0)}
 button:focus-visible{outline:2px solid var(--red);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -124,40 +117,37 @@ button:focus-visible{outline:2px solid var(--red);outline-offset:3px}
 <div class="wrap">
   <header class="hero">
     <img src="img/logo.png" alt="مراد">
-    <h1>شو بتشتهي اليوم؟</h1>
-    <p>كل طبق بصحنه… اكبس على الصحن ليجيك عالطاولة</p>
   </header>
   <nav class="rail">
-    <div class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="دوّر على طبق، مثلاً كباب أو موهيتو" autocomplete="off" aria-label="ابحث بالمنيو"><button id="qx" hidden aria-label="امسح البحث">×</button></div>
+    <div class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="دوّر على طبق…" autocomplete="off" aria-label="ابحث بالمنيو"><button id="qx" hidden aria-label="امسح البحث">×</button></div>
     <div class="rail-in" id="rail"></div>
   </nav>
-  <div class="found" id="found" hidden></div>
   <div id="list"></div>
-  <div class="empty" id="empty" hidden><b>ما لقينا هالطبق</b>جرّب اسم تاني، أو اكتبه بالإنجليزي</div>
-  <div class="foot">الأسعار بالدينار العراقي · @murad.restaurant</div>
+  <div class="empty" id="empty" hidden>ما لقينا شي بهالاسم</div>
+  <div class="foot">الأسعار بالدينار العراقي<br><span dir="ltr">@murad.restaurant</span></div>
 </div>
 <div class="veil" id="veil"></div>
 <div class="serve" id="serve"></div>
-<div class="toast" id="toast"></div>
 <script src="demo/common.js"></script>
 <script>
 const $ = s => document.querySelector(s), E = MU.esc;
 let M;
 const GN = {kitchen: 'المطبخ', cafe: 'الكافيه', sweet: 'الحلو والأركيلة', feast: 'ولائم مراد'};
-const seal = p => p ? `<span class="seal">${MU.num(p)}<i>د.ع</i></span>` : `<span class="seal ask">حسب<br>الطلب</span>`;
+const num = n => Number(n).toLocaleString('en-US'), price = p => p ? num(p) : 'حسب الطلب';
+const seal = p => p ? `<span class="seal">${num(p)}<i>د.ع</i></span>` : `<span class="seal ask">حسب<br>الطلب</span>`;
 const norm = s => String(s || '').toLowerCase().replace(/[ً-ْـ]/g, '').replace(/[أإآ]/g, 'ا').replace(/[ىی]/g, 'ي').replace(/ة/g, 'ه').replace(/\s+/g, ' ');
 function dish(it, small) {
   return `<button class="dish${it.i ? '' : ' nophoto'}" data-k="${it.key}" data-q="${E(norm(it.ar + ' ' + it.en + ' ' + it.sec.ar + ' ' + it.sec.en))}">${it.i ? `<span class="pl"><img src="${it.i}" alt="" loading="lazy"></span>` : ''}${seal(it.p)}${it.s && !small ? '<span class="sig">توقيع مراد</span>' : ''}<b>${E(it.ar)}</b><small>${E(it.en)}</small></button>`;
 }
 function render() {
-  $('#rail').innerHTML = `<button class="cat" data-t="best"><span class="disc"><img src="${M.best[0].i}" alt=""></span><span>الأكثر طلباً</span></button>` +
+  $('#rail').innerHTML = `<button class="cat" data-t="best"><span class="disc"><img src="${M.best[0].i}" alt=""></span><span>الأكثر مبيعاً</span></button>` +
     M.sections.map((s, si) => `<button class="cat" data-t="s${si}"><span class="disc"><img src="${s.c}" alt="" loading="lazy"></span><span>${E(s.ar)}</span></button>`).join('');
-  let h = `<div class="best" id="best"><div class="kick">الأكثر طلباً</div><h2>صحون ما بتنرد</h2><div class="carousel">` +
-    M.best.map(it => `<button class="big" data-k="${it.key}"><span class="plate" style="display:block"><img src="${it.i}" alt=""></span><b>${E(it.ar)}</b><small>${MU.price(it.p)} د.ع</small></button>`).join('') + '</div></div>';
+  let h = `<div class="best" id="best"><div class="sec-h"><div><h3>الأكثر مبيعاً</h3><em>Best Sellers</em></div></div><div class="carousel">` +
+    M.best.map(it => `<button class="big" data-k="${it.key}"><span class="plate" style="display:block"><img src="${it.i}" alt=""></span><b>${E(it.ar)}</b><small>${price(it.p)}${it.p ? ' د.ع' : ''}</small></button>`).join('') + '</div></div>';
   let g = '';
   M.sections.forEach((s, si) => {
     if (s.g !== g) { g = s.g; h += `<div class="group">${GN[g]}</div>`; }
-    h += `<section class="sec" id="s${si}"><div class="sec-h"><div><h3>${E(s.ar)}</h3><em>${E(s.en)}</em></div><span class="n">${MU.num(s.items.length)} ${s.items.length > 10 || s.items.length < 3 ? 'صنف' : 'أصناف'}</span></div>
+    h += `<section class="sec" id="s${si}"><div class="sec-h"><div><h3>${E(s.ar)}</h3><em>${E(s.en)}</em></div></div>
       <div class="grid${s.compact ? ' small' : ''}">${s.items.map(it => dish(it, s.compact)).join('')}</div></section>`;
   });
   $('#list').innerHTML = h;
@@ -174,11 +164,10 @@ function serve(k) {
   const x = '<button class="x" id="x" aria-label="سكّر">×</button>';
   $('#serve').innerHTML = `${it.i ? `<div class="photo">${x}<img src="${it.i}" alt="${E(it.ar)}"></div>` : ''}<div class="card${it.i ? '' : ' solo'}">${it.i ? '' : x}
     <h4>${E(it.ar)}</h4><div class="en">${E(it.en)}، ${E(it.sec.ar)}</div>${it.d ? `<p class="ds">${E(it.d)}</p>` : ''}
-    <div class="row"><span class="pr">${MU.price(it.p)}${it.p ? '<i>د.ع</i>' : ''}</span><button class="add" id="add">أضف لطلبيتي</button></div></div>`;
+    <div class="row"><span class="pr">${price(it.p)}${it.p ? '<i>د.ع</i>' : ''}</span></div></div>`;
   $('#serve').scrollTop = 0;
   requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.add('open')));
   $('#x').onclick = close;
-  $('#add').onclick = () => { MU.tray.add(k); toast(`انضاف ${it.ar} لطلبيتك`); close(); };
 }
 function search() {
   if (!M) return;
@@ -186,18 +175,15 @@ function search() {
   $('#qx').hidden = !q; $('#best').hidden = !!q; $('.cat[data-t="best"]').hidden = !!q;
   document.querySelectorAll('section.sec').forEach(sec => {
     let c = 0; sec.querySelectorAll('.dish').forEach(d => { const ok = !q || d.dataset.q.includes(q); d.hidden = !ok; if (ok) c++; });
-    const ne = sec.querySelector('.n'); if (!ne.dataset.t) ne.dataset.t = ne.textContent; ne.textContent = q ? MU.num(c) + ' من ' + MU.num(sec.querySelectorAll('.dish').length) : ne.dataset.t;
     sec.hidden = !c; n += c; const cat = $(`.cat[data-t="${sec.id}"]`); if (cat) cat.hidden = !c;
   });
   document.querySelectorAll('.group').forEach(g => { let el = g.nextElementSibling, any = false;
     while (el && !el.classList.contains('group')) { if (el.matches('section.sec') && !el.hidden) any = true; el = el.nextElementSibling; } g.hidden = !any; });
   $('#empty').hidden = !q || n > 0;
-  $('#found').hidden = !q || !n; $('#found').textContent = `لقينا ${MU.num(n)} ${n === 1 ? 'طبق' : n === 2 ? 'طبقين' : n <= 10 ? 'أطباق' : 'طبق'}`;
 }
 $('#q').addEventListener('input', () => { search(); const top = $('.hero').offsetHeight; if (scrollY > top) scrollTo({top}); });
 $('#qx').onclick = () => { $('#q').value = ''; search(); $('#q').focus(); };
 function close() { document.body.classList.remove('open'); }
-function toast(t) { const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('on'), 2200); }
 $('#veil').onclick = close;
 addEventListener('keydown', e => e.key === 'Escape' && close());
 MU.load().then(m => { M = m; render(); });
