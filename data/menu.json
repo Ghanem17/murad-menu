@@ -22,7 +22,7 @@
     ]},
     {"ar": "مقبلات باردة", "en": "Cold Appetizers", "g": "kitchen", "c": "img/cat-8911.webp", "items": [
       {"ar": "حمص مراد", "en": "Murad Hummus", "d": "طبق عربي مثير للاهتمام من ارض بلادنا مستوحي من مطبخ مراد بنكهه فريدة من نوعها ويدل على اصالة الكرم و الجود", "de": "A signature hummus from the Murad kitchen — rich, generous and full of flavour.", "p": 12000, "i": "img/m78105.webp", "s": true},
-      {"ar": "حمص بطحينة", "en": "Hummus with Tahini", "d": "", "de": "", "p": 6000, "i": "img/m78106.webp", "s": false},
+      {"ar": "حمص بطحينة", "en": "Hummus with Tahini", "d": "", "de": "", "p": 6000, "i": "img/m78106.webp", "s": false, "best": true},
       {"ar": "متبل باذنجان", "en": "Mutabal (Baba Ghanoush)", "d": "", "de": "", "p": 7000, "i": "img/m78107.webp", "s": false},
       {"ar": "جاجيك", "en": "Tzatziki", "d": "", "de": "", "p": 3000, "i": "img/m78108.webp", "s": false},
       {"ar": "يلانجي", "en": "Yalanji (Stuffed Vine Leaves)", "d": "", "de": "", "p": 9000, "i": "img/m78109.webp", "s": false},
@@ -60,7 +60,7 @@
       {"ar": "سلطة الكراب", "en": "Crab Salad", "d": "تقدم بخليط من مشكل لولو حزر / ملفوف احمر / مانكو / سمك الكارب", "de": "Iceberg lettuce, red cabbage, mango & crab sticks.", "p": 16000, "i": "img/m78135.webp", "s": false}
     ]},
     {"ar": "الأطباق الشرقية", "en": "Eastern Dishes", "g": "kitchen", "c": "img/cat-8915.webp", "items": [
-      {"ar": "ضلع مطعم مراد", "en": "Murad Signature Rib", "d": "", "de": "", "p": 45000, "i": "img/m78136.webp", "s": true},
+      {"ar": "ضلع مطعم مراد", "en": "Murad Signature Rib", "d": "", "de": "", "p": 45000, "i": "img/m78136.webp", "s": true, "best": true},
       {"ar": "كباب هندي", "en": "Indian Kebab", "d": "", "de": "", "p": 30000, "i": "img/m78137.webp", "s": false},
       {"ar": "قوزي لحم", "en": "Lamb Quzi", "d": "", "de": "", "p": 26000, "i": "img/m78138.webp", "s": false},
       {"ar": "قوزي دجاج", "en": "Chicken Quzi", "d": "", "de": "", "p": 24000, "i": "img/m78139.webp", "s": false},
@@ -81,7 +81,7 @@
       {"ar": "صاج كباب لحم", "en": "Meat Kebab Saj", "d": "", "de": "", "p": 25000, "i": "img/m78152.webp", "s": false},
       {"ar": "مشاوي مشكل لحم", "en": "Mixed Meat Grill", "d": "", "de": "", "p": 30000, "i": "img/m78153.webp", "s": false},
       {"ar": "مشاوي مشكل دجاج + لحم", "en": "Mixed Grill (Chicken & Meat)", "d": "", "de": "", "p": 28000, "i": "img/m78154.webp", "s": false},
-      {"ar": "كباب لحم", "en": "Meat Kebab", "d": "", "de": "", "p": 30000, "i": "img/m78155.webp", "s": false},
+      {"ar": "كباب لحم", "en": "Meat Kebab", "d": "", "de": "", "p": 30000, "i": "img/m78155.webp", "s": false, "best": true},
       {"ar": "نص نفر لحم", "en": "Half Portion Meat Grill", "d": "", "de": "", "p": 16000, "i": "img/m78156.webp", "s": false},
       {"ar": "كباب اورفلي", "en": "Urfa Kebab", "d": "", "de": "", "p": 30000, "i": "img/m78157.webp", "s": false},
       {"ar": "كباب باذنجان", "en": "Eggplant Kebab", "d": "", "de": "", "p": 30000, "i": "img/m78158.webp", "s": false},
@@ -107,7 +107,7 @@
       {"ar": "شرحات لحم بالفطر", "en": "Mushroom Beef Strips", "d": "شرائح من اللحم بصوص الديميكلاس وخضرة سوتيه وبطاطا بيوريه", "de": "Beef slices in demi-glace sauce with sautéed vegetables and mashed potatoes.", "p": 28000, "i": "img/m78174.webp", "s": false},
       {"ar": "شرحات لحم مطفاي بالحامض والثوم", "en": "Beef Strips with Lemon & Garlic", "d": "شرائح لحم مع الثوم والحامض وخضرة سوتيه و بطاطا بيوريه", "de": "Beef slices with garlic & lemon, sautéed vegetables and mashed potatoes.", "p": 28000, "i": "img/m78175.webp", "s": false},
       {"ar": "سلمون ماسالا", "en": "Salmon Masala", "d": "صوص وايت و سبيناغ بصل و ثوم", "de": "White sauce, spinach, onion and garlic.", "p": 35000, "i": "img/m78176.webp", "s": false},
-      {"ar": "طاجن لحم", "en": "Meat Tagine", "d": "", "de": "", "p": 30000, "i": "img/m78177.webp", "s": false}
+      {"ar": "طاجن لحم", "en": "Meat Tagine", "d": "", "de": "", "p": 30000, "i": "img/m78177.webp", "s": false, "best": true}
     ]},
     {"ar": "أطباق الدجاج الغربي", "en": "Western Chicken Dishes", "g": "kitchen", "c": "img/cat-8919.webp", "items": [
       {"ar": "كوردن بلو دجاج", "en": "Chicken Cordon Bleu", "d": "دجاج محشي بجبنة الموزوريلا وجبنة الفونك و الفطر مع صوص الباشاميل وخضار السوتيه و الكول سلو", "de": "Chicken stuffed with mozzarella, cheese & mushroom, béchamel sauce, sautéed vegetables & coleslaw.", "p": 24000, "i": "img/m78178.webp", "s": false},
@@ -117,17 +117,17 @@
       {"ar": "سكالوب ميلانيز", "en": "Chicken Milanese", "d": "صوص نابوليتانا و موزوريلا و جبن بارمزان وسلطة كول سلو", "de": "Napolitana sauce, mozzarella, parmesan and coleslaw.", "p": 20000, "i": "img/m78182.webp", "s": false},
       {"ar": "سكالوب دجاج", "en": "Chicken Escalope", "d": "", "de": "", "p": 20000, "i": "img/m78183.webp", "s": false},
       {"ar": "كرسبي", "en": "Crispy Chicken", "d": "6 قطع مع الفنكر و الصوص الكوكتيل وكريمة الثوم", "de": "6 pieces with fries, cocktail sauce and garlic cream.", "p": 20000, "i": "img/m78184.webp", "s": false},
-      {"ar": "دوبياز دجاج سبايسي", "en": "Spicy Chicken Dopiaza", "d": "صدر دجاج جوليان / بصل و ثوم / فلفل الوان صوص خاص", "de": "Julienned chicken breast, onion, garlic, bell peppers & a special sauce.", "p": 26000, "i": "img/m78185.webp", "s": false},
+      {"ar": "دوبياز دجاج سبايسي", "en": "Spicy Chicken Dopiaza", "d": "صدر دجاج جوليان / بصل و ثوم / فلفل الوان صوص خاص", "de": "Julienned chicken breast, onion, garlic, bell peppers & a special sauce.", "p": 26000, "i": "img/m78185.webp", "s": false, "best": true},
       {"ar": "طاجن دجاج", "en": "Chicken Tagine", "d": "", "de": "", "p": 26000, "i": "img/m78186.webp", "s": false}
     ]},
     {"ar": "الركن الإيطالي", "en": "Cucina Italiana", "g": "kitchen", "c": "img/cat-8920.webp", "items": [
       {"ar": "فوتوشيني الفريدو", "en": "Fettuccine Alfredo", "d": "صوص الكريمة / باستا فوتوشيني / الفطر مع الدجاج المشوي", "de": "Cream sauce, fettuccine, mushrooms and grilled chicken.", "p": 15000, "i": "img/m78187.webp", "s": false},
       {"ar": "بينا روزيه", "en": "Penne Rosé", "d": "صوص مدموج بخليط من الكريمة والصوص النابوليتانا و الباستا البيني وموزوريلا", "de": "A blend of cream and napolitana sauce with penne and mozzarella.", "p": 15000, "i": "img/m78188.webp", "s": false},
-      {"ar": "لزانيا لحم", "en": "Beef Lasagna", "d": "نقدمها على طريقتنا بالباستا الراكتوني وصو ص البولونيز المشبع باللحم و الموزوريلا و الباشاميل", "de": "Rigatoni with rich beef bolognese, mozzarella and béchamel.", "p": 18000, "i": "img/m78189.webp", "s": false},
-      {"ar": "سباكيتي بولونيز", "en": "Spaghetti Bolognese", "d": "", "de": "", "p": 20000, "i": "img/m78190.webp", "s": false}
+      {"ar": "لزانيا لحم", "en": "Beef Lasagna", "d": "نقدمها على طريقتنا بالباستا الراكتوني وصو ص البولونيز المشبع باللحم و الموزوريلا و الباشاميل", "de": "Rigatoni with rich beef bolognese, mozzarella and béchamel.", "p": 18000, "i": "img/m78189.webp", "s": false, "best": true},
+      {"ar": "سباكيتي بولونيز", "en": "Spaghetti Bolognese", "d": "", "de": "", "p": 20000, "i": "img/m78190.webp", "s": false, "best": true}
     ]},
     {"ar": "بيتزا", "en": "Pizza", "g": "kitchen", "c": "img/cat-8921.webp", "items": [
-      {"ar": "بيتزا مراد الخاصة", "en": "Murad Special Pizza", "d": "تقدم على أربعة أصناف من اللحوم (دجاج، لحم، باباروني، سلامي بقر)", "de": "Four meats: chicken, beef, pepperoni and beef salami.", "p": 20000, "i": "img/m78191.webp", "s": true},
+      {"ar": "بيتزا مراد الخاصة", "en": "Murad Special Pizza", "d": "تقدم على أربعة أصناف من اللحوم (دجاج، لحم، باباروني، سلامي بقر)", "de": "Four meats: chicken, beef, pepperoni and beef salami.", "p": 20000, "i": "img/m78191.webp", "s": true, "best": true},
       {"ar": "بيتزا ماركريتا", "en": "Margherita Pizza", "d": "", "de": "", "p": 15000, "i": "img/m78192.webp", "s": false},
       {"ar": "بيتزا لحم", "en": "Meat Pizza", "d": "صوص البيزا، موزوريلا، لحم مشوي، خضار، زيتون", "de": "Pizza sauce, mozzarella, grilled meat, vegetables, olives.", "p": 18000, "i": "img/m78193.webp", "s": false},
       {"ar": "بيتزا دجاج", "en": "Chicken Pizza", "d": "صوص البيزا، موزوريلا، دجاج مشوي، خضار، زيتون", "de": "Pizza sauce, mozzarella, grilled chicken, vegetables, olives.", "p": 17000, "i": "img/m78194.webp", "s": false},

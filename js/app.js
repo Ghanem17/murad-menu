@@ -24,10 +24,21 @@ function tiles() {
   }).join('');
   document.querySelectorAll('.tile').forEach(t => t.onclick = () => openMenu('g-' + t.dataset.g));
 }
+function itemHTML(s, si, it, ii) {
+  const d = L === 'ar' ? it.d : (it.de || it.d);
+  return `<button class="item${it.s ? ' sig' : ''}" data-k="${si}|${ii}">${it.i ? `<img src="${it.i}" alt="" loading="lazy">` : ''}<div class="t"><div class="nm">${esc(nm(it))}</div><div class="alt">${esc(alt(it))}</div>${!s.compact && d ? `<div class="ds">${esc(d)}</div>` : ''}<div class="row2"><span class="price${it.p ? '' : ' ask'}">${fmt(it.p)}</span>${it.s ? `<span class="badge">${L === 'ar' ? 'توقيع مراد' : 'Signature'}</span>` : ''}</div></div></button>`;
+}
 function render() {
   tiles();
   const q = ($('#q').value || '').trim().toLowerCase();
   let html = '', chips = '', shown = 0, lastG = '';
+  // best sellers: items flagged "best": true, shown first (hidden while searching to avoid duplicates)
+  const best = q ? [] : DATA.flatMap((s, si) => s.items.map((it, ii) => [s, si, it, ii]).filter(x => x[2].best));
+  if (best.length) {
+    chips += `<button class="chip" data-s="best">${L === 'ar' ? 'الأكثر مبيعاً' : 'Best Sellers'}</button>`;
+    html += `<section id="best"><div class="sec-h"><h2>${L === 'ar' ? 'الأكثر مبيعاً' : 'Best Sellers'}</h2><small>${L === 'ar' ? 'Best Sellers' : 'الأكثر مبيعاً'}</small></div>` +
+      best.map(([s, si, it, ii]) => itemHTML(s, si, it, ii)).join('') + '</section>';
+  }
   DATA.forEach((s, si) => {
     const its = s.items.filter(it => !q || (it.ar + ' ' + it.en).toLowerCase().includes(q));
     if (!its.length) return;
@@ -35,7 +46,7 @@ function render() {
     if (s.g !== lastG) { const g = GROUPS.find(x => x.k === s.g); html += `<div class="group-h" id="g-${s.g}">${esc(L === 'ar' ? g.ar : g.en.toUpperCase())}</div>`; lastG = s.g; }
     chips += `<button class="chip" data-s="s${si}">${esc(nm(s))}</button>`;
     html += `<section id="s${si}" class="${s.compact ? 'compact' : ''}"><div class="sec-h"><h2>${esc(nm(s))}</h2><small>${esc(alt(s))}</small></div>` +
-      its.map(it => `<button class="item${it.s ? ' sig' : ''}" data-k="${si}|${s.items.indexOf(it)}">${it.i ? `<img src="${it.i}" alt="" loading="lazy">` : ''}<div class="t"><div class="nm">${esc(nm(it))}</div><div class="alt">${esc(alt(it))}</div>${!s.compact && (L === 'ar' ? it.d : (it.de || it.d)) ? `<div class="ds">${esc(L === 'ar' ? it.d : (it.de || it.d))}</div>` : ''}<div class="row2"><span class="price${it.p ? '' : ' ask'}">${fmt(it.p)}</span>${it.s ? `<span class="badge">${L === 'ar' ? 'توقيع مراد' : 'Signature'}</span>` : ''}</div></div></button>`).join('') + '</section>';
+      its.map(it => itemHTML(s, si, it, s.items.indexOf(it))).join('') + '</section>';
   });
   $('#list').innerHTML = html; $('#chips').innerHTML = chips; $('#empty').style.display = shown ? 'none' : 'block';
   document.querySelectorAll('.chip').forEach(c => c.onclick = () => { const el = document.getElementById(c.dataset.s); window.scrollTo({top: el.offsetTop - 112, behavior: 'smooth'}); });
