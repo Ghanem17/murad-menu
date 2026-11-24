@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<base href="../">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>بنتو · مراد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;800;900&family=Readex+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+/* Concept: a daylight mosaic. Four rooms (kitchen, cafe, sweets, feasts) as tabs; each section is a bento of photo tiles, the signature dish gets the wide tile */
+:root{
+  --bg:#ECEFF2; --tile:#FFFFFF; --ink:#121B22; --mute:#5E6B76; --line:#121B2214; --red:#E0242F; --navy:#121B22; --sky:#DCE3EA;
+  --display:'Alexandria','Readex Pro',Tahoma,sans-serif; --body:'Readex Pro',Tahoma,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body)}
+body{overflow-x:hidden}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:inherit}
+.wrap{max-width:560px;margin:0 auto}
+.head{background:var(--navy);color:#fff;border-radius:0 0 34px 34px;padding:calc(22px + env(safe-area-inset-top)) 22px 24px;position:relative;overflow:hidden}
+.head::before{content:"";position:absolute;width:260px;height:260px;border-radius:50%;border:44px solid var(--red);opacity:.9;top:-130px;inset-inline-start:-120px}
+.head .lg{display:flex;align-items:center;justify-content:space-between;position:relative}
+.head img{width:58px}
+.head .lg span{font-size:11px;letter-spacing:2px;color:#9DB0C0}
+.head h1{font-family:var(--display);font-weight:900;font-size:52px;line-height:.95;margin:22px 0 0;position:relative;letter-spacing:-1px}
+.head h1 em{font-style:normal;color:var(--red)}
+.head p{position:relative;margin:10px 0 0;color:#B9C6D1;font-size:13px}
+/* rooms */
+.rooms{position:sticky;top:0;z-index:5;background:var(--bg);padding:12px 14px 8px}
+.rooms-in{display:grid;grid-template-columns:repeat(4,1fr);background:var(--tile);border-radius:18px;padding:5px;gap:4px;box-shadow:0 6px 20px -10px #121B2240;position:relative}
+.room{border-radius:14px;padding:9px 4px;text-align:center;font-size:12.5px;font-weight:600;color:var(--mute);position:relative;z-index:1;transition:color .3s}
+.room.on{color:#fff}
+.pill{position:absolute;top:5px;bottom:5px;border-radius:14px;background:var(--ink);transition:inset-inline-start .4s cubic-bezier(.2,.8,.2,1),width .4s;z-index:0}
+.secs{display:flex;gap:6px;overflow-x:auto;padding:10px 0 0;scrollbar-width:none}
+.secs::-webkit-scrollbar{display:none}
+.secs button{flex:none;font-size:12px;padding:6px 12px;border-radius:20px;border:1px solid var(--line);color:var(--mute);background:var(--tile)}
+.secs button.on{border-color:var(--red);color:var(--red)}
+/* sections */
+main{padding:0 14px}
+.room-title{font-family:var(--display);font-weight:900;font-size:13px;letter-spacing:3px;color:var(--red);margin:22px 4px 0}
+section{scroll-margin-top:118px}
+.sh{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:24px 4px 12px}
+.sh h2{font-family:var(--display);font-weight:800;font-size:28px;margin:0;letter-spacing:-.5px}
+.sh span{font-size:11px;color:var(--mute);letter-spacing:1.5px;text-transform:uppercase}
+.bento{display:grid;grid-template-columns:1fr 1fr;grid-auto-flow:dense;gap:10px}
+.t{position:relative;background:var(--tile);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;min-width:0;box-shadow:0 1px 0 var(--line);transition:transform .2s}
+.t:active{transform:scale(.97)}
+.t .ph{aspect-ratio:1;overflow:hidden;background:var(--sky)}
+.t .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.t:hover .ph img{transform:scale(1.06)}
+.t .tx{padding:10px 12px 12px;display:flex;flex-direction:column;gap:2px;flex:1}
+.t b{font-size:14px;font-weight:600;line-height:1.35}
+.t small{font-size:11px;color:var(--mute)}
+.t .p{margin-top:auto;padding-top:8px;font-family:var(--display);font-weight:800;font-size:16px}
+.t .p i{font-style:normal;font-family:var(--body);font-weight:400;font-size:11px;color:var(--mute);margin-inline-start:3px}
+.t.wide{grid-column:span 2}
+.t.wide .ph{aspect-ratio:16/9}
+.t.wide .tx{display:grid;grid-template-columns:1fr auto;grid-template-areas:"n p" "e p";align-items:center;column-gap:12px;padding:12px 16px 14px}
+.t.wide b{grid-area:n;font-family:var(--display);font-weight:800;font-size:21px}
+.t.wide small{grid-area:e}
+.t.wide .p{grid-area:p;margin:0;padding:8px 14px;background:var(--ink);color:#fff;border-radius:14px;font-size:17px}
+.t.wide .p i{color:#B9C6D1}
+.flag{position:absolute;top:10px;inset-inline-start:10px;z-index:1;background:var(--red);color:#fff;font-size:10.5px;font-weight:600;border-radius:20px;padding:3px 9px}
+.t.noph{background:var(--navy);color:#fff}.t.noph small,.t.noph .p i{color:#9DB0C0}
+.t.noph .tx{padding-top:16px}
+/* compact: dense chips */
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.c{display:flex;align-items:center;gap:10px;background:var(--tile);border-radius:40px;padding:5px 5px 5px 14px;min-width:0}
+.c img{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:none;background:var(--sky)}
+.c .ct{min-width:0;flex:1}
+.c b{display:block;font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.c span{font-family:var(--display);font-weight:800;font-size:12.5px}
+.foot{text-align:center;color:var(--mute);font-size:12px;padding:36px 20px calc(40px + env(safe-area-inset-bottom))}
+/* zoom detail grows out of the tile */
+.zoom{position:fixed;inset:0;z-index:20;background:var(--tile);overflow:auto;clip-path:inset(50% 50% 50% 50% round 22px);transition:clip-path .55s cubic-bezier(.2,.8,.2,1);visibility:hidden}
+.zoom.on{visibility:visible}
+.zoom .zi{max-width:560px;margin:0 auto}
+.zoom .zph{aspect-ratio:4/3;background:var(--sky)}
+.zoom .zph img{width:100%;height:100%;object-fit:cover;display:block}
+.zoom .zb{padding:20px 22px calc(30px + env(safe-area-inset-bottom))}
+.zoom .kk{font-size:11px;letter-spacing:2px;color:var(--red);font-weight:600}
+.zoom h3{font-family:var(--display);font-weight:900;font-size:34px;line-height:1.1;margin:6px 0 0;letter-spacing:-.5px}
+.zoom .en{color:var(--mute);font-size:13px;margin-top:4px}
+.zoom .ds{font-size:15px;line-height:1.8;color:#2E3A44;margin:14px 0 0}
+.zoom .zp{display:flex;justify-content:space-between;align-items:center;margin-top:22px;padding-top:16px;border-top:1px solid var(--line)}
+.zoom .zp b{font-family:var(--display);font-weight:900;font-size:30px}
+.zoom .zp b i{font-style:normal;font-family:var(--body);font-weight:400;font-size:13px;color:var(--mute);margin-inline-start:4px}
+.zx{position:fixed;z-index:21;top:calc(14px + env(safe-area-inset-top));inset-inline-end:14px;width:42px;height:42px;border-radius:50%;background:#fff;box-shadow:0 4px 14px #0003;font-size:22px;display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.zx.on{opacity:1;pointer-events:auto}
+.add{background:var(--red);color:#fff;border-radius:16px;padding:13px 22px;font-weight:600}
+button:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="head">
+    <div class="lg"><img src="img/logo.png" alt="مراد"><span>RESTAURANT &amp; CAFE</span></div>
+    <h1>اختار<br>قعدتك<em>.</em></h1>
+    <p>أربع زوايا بالمنيو… كل وحدة إلها طعمة</p>
+  </header>
+  <nav class="rooms"><div class="rooms-in" id="rooms"><span class="pill" id="pill"></span></div><div class="secs" id="secs"></div></nav>
+  <main id="main"></main>
+  <div class="foot">الأسعار بالدينار العراقي · @murad.restaurant</div>
+</div>
+<div class="zoom" id="zoom"></div>
+<button class="zx" id="zx" aria-label="إغلاق">×</button>
+<script src="demo/common.js"></script>
+<script>
+const $ = s => document.querySelector(s), E = MU.esc;
+const ROOMS = [['kitchen', 'المطبخ'], ['cafe', 'الكافيه'], ['sweet', 'الحلو'], ['feast', 'الولائم']];
+let M, room = 'kitchen', lastRect;
+const pr = p => p ? `${MU.num(p)}<i>د.ع</i>` : 'حسب الطلب';
+function tile(it, wide) {
+  const flag = it.s ? 'توقيع مراد' : it.best ? 'الأكثر طلباً' : '';
+  return `<button class="t${wide ? ' wide' : ''}${it.i ? '' : ' noph'}" data-k="${it.key}">${flag ? `<span class="flag">${flag}</span>` : ''}${it.i ? `<div class="ph"><img src="${it.i}" alt="" loading="lazy"></div>` : ''}
+    <div class="tx"><b>${E(it.ar)}</b><small>${E(it.en)}</small><span class="p">${pr(it.p)}</span></div></button>`;
+}
+function section(s, si) {
+  let body;
+  if (s.compact) body = `<div class="chips">${s.items.map(it => `<button class="c" data-k="${it.key}">${it.i ? `<img src="${it.i}" alt="" loading="lazy">` : `<img src="${s.c}" alt="" loading="lazy">`}<div class="ct"><b>${E(it.ar)}</b><span>${MU.price(it.p)}</span></div></button>`).join('')}</div>`;
+  else {
+    // wide tile for the signature dish (or the first one); keep the square count even so rows fill
+    let wi = s.items.findIndex(it => it.s && it.i); if (wi < 0) wi = s.items.findIndex(it => it.i);
+    const rest = s.items.length - 1;
+    const wides = new Set([wi]); if (rest % 2 && s.items.length > 2) { const w2 = s.items.findIndex((it, k) => k !== wi && it.i && (it.best || k === s.items.length - 1)); if (w2 >= 0) wides.add(w2); }
+    body = `<div class="bento">${s.items.map((it, k) => tile(it, wides.has(k))).join('')}</div>`;
+  }
+  return `<section id="s${si}"><div class="sh"><h2>${E(s.ar)}</h2><span>${E(s.en)}</span></div>${body}</section>`;
+}
+function render() {
+  const secs = M.sections.map((s, si) => [s, si]).filter(([s]) => s.g === room);
+  $('#main').innerHTML = secs.map(([s, si]) => section(s, si)).join('');
+  $('#secs').innerHTML = secs.map(([s, si]) => `<button data-t="s${si}">${E(s.ar)}</button>`).join('');
+  document.querySelectorAll('#secs button').forEach(b => b.onclick = () => scrollTo({top: document.getElementById(b.dataset.t).offsetTop - 112, behavior: 'smooth'}));
+  document.querySelectorAll('#main [data-k]').forEach(b => b.onclick = () => zoom(b));
+  document.querySelectorAll('.room').forEach(r => r.classList.toggle('on', r.dataset.r === room));
+  const on = $('.room.on'); $('#pill').style.width = on.offsetWidth + 'px'; $('#pill').style.insetInlineStart = (on.parentNode.offsetWidth - on.offsetLeft - on.offsetWidth) + 'px';
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) document.querySelectorAll('#secs button').forEach(b => b.classList.toggle('on', b.dataset.t === e.target.id)); }), {rootMargin: '-130px 0px -65% 0px'});
+  document.querySelectorAll('#main section').forEach(s => io.observe(s));
+}
+function inset(r) { return `inset(${r.top}px ${innerWidth - r.right}px ${innerHeight - r.bottom}px ${r.left}px round 22px)`; }
+function zoom(el) {
+  const it = M.all.find(x => x.key === el.dataset.k), z = $('#zoom'); lastRect = el.getBoundingClientRect();
+  z.innerHTML = `<div class="zi">${it.i ? `<div class="zph"><img src="${it.i}" alt=""></div>` : '<div style="height:70px"></div>'}<div class="zb"><div class="kk">${E(it.sec.ar)}</div><h3>${E(it.ar)}</h3><div class="en">${E(it.en)}</div>${it.d ? `<p class="ds">${E(it.d)}</p>` : ''}
+    <div class="zp"><b>${pr(it.p)}</b><button class="add" id="add">أضف لطلبيتي</button></div></div></div>`;
+  z.style.transition = 'none'; z.style.clipPath = inset(lastRect); z.classList.add('on'); z.scrollTop = 0;
+  requestAnimationFrame(() => requestAnimationFrame(() => { z.style.transition = ''; z.style.clipPath = 'inset(0 0 0 0 round 0px)'; $('#zx').classList.add('on'); }));
+  $('#add').onclick = () => { MU.tray.add(it.key); $('#add').textContent = 'بطلبيتك ' + MU.num(MU.tray.get(it.key)); };
+}
+function unzoom() { const z = $('#zoom'); if (!z.classList.contains('on')) return; z.style.clipPath = inset(lastRect); $('#zx').classList.remove('on'); setTimeout(() => z.classList.remove('on'), 550); }
+$('#zx').onclick = unzoom;
+addEventListener('keydown', e => e.key === 'Escape' && unzoom());
+MU.load().then(m => {
+  M = m;
+  $('#rooms').insertAdjacentHTML('beforeend', ROOMS.map(([k, n]) => `<button class="room" data-r="${k}">${n}</button>`).join(''));
+  document.querySelectorAll('.room').forEach(r => r.onclick = () => { room = r.dataset.r; render(); scrollTo({top: $('.rooms').offsetTop}); });
+  render();
+});
+addEventListener('resize', () => M && render());
+</script>
+</body>
+</html>

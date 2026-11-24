@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<base href="../">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ريلز · مراد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Readex+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+/* Concept: the menu as a vertical feed of full-screen dishes; sections are story bubbles; a tray collects what you want to order */
+:root{
+  --night:#070B10; --glass:#0d141bb3; --ink:#fff; --mute:#C3CDD6; --red:#E0242F; --gold:#F5B942;
+  --display:'Lalezar','Readex Pro',sans-serif; --body:'Readex Pro',Tahoma,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--night);color:var(--ink);font-family:var(--body);overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+.app{position:relative;height:100%;max-width:520px;margin:0 auto;overflow:hidden}
+#feed{position:absolute;inset:0;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;overscroll-behavior:contain}
+#feed::-webkit-scrollbar{display:none}
+.reel{position:relative;height:100%;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;display:flex;align-items:flex-end}
+.reel .blur{position:absolute;inset:-10%;width:120%;height:120%;object-fit:cover;filter:blur(28px) saturate(1.3);opacity:.55}
+.reel .hero{position:absolute;left:0;right:0;top:20%;width:100%;height:46%;object-fit:cover;transform:scale(1.15);transition:transform 6s ease-out;-webkit-mask:linear-gradient(transparent,#000 14%,#000 86%,transparent);mask:linear-gradient(transparent,#000 14%,#000 86%,transparent)}
+.reel.on .hero{transform:scale(1.32)}
+.reel::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,#070B10 8%,#070B10e6 26%,transparent 52%,transparent 78%,#070B10b3);pointer-events:none}
+.cap{position:relative;z-index:2;padding:0 20px calc(30px + env(safe-area-inset-bottom));padding-inline-end:84px;width:100%}
+.cap .k{font-size:12px;color:var(--mute);display:flex;gap:8px;align-items:center}
+.cap .k b{color:var(--red);font-weight:600}
+.cap h2{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:8px 0 0;text-wrap:balance}
+.cap .en{font-size:13px;color:var(--mute);margin-top:4px}
+.cap p{font-size:13.5px;line-height:1.65;color:#E3E9EE;margin:10px 0 0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.cap .pr{display:inline-flex;align-items:baseline;gap:6px;margin-top:14px;background:var(--red);border-radius:14px;padding:8px 16px;font-size:22px;font-weight:700}
+.cap .pr small{font-size:12px;font-weight:400}
+.cap .chip{display:inline-block;margin-inline-start:8px;font-size:11px;border:1px solid var(--gold);color:var(--gold);border-radius:20px;padding:3px 10px;vertical-align:middle}
+.reel .cap>*{opacity:0;transform:translateY(16px);transition:opacity .5s,transform .6s cubic-bezier(.2,.8,.2,1)}
+.reel.on .cap>*{opacity:1;transform:none}
+.reel.on .cap>*:nth-child(2){transition-delay:.06s}.reel.on .cap>*:nth-child(3){transition-delay:.12s}.reel.on .cap>*:nth-child(4){transition-delay:.18s}.reel.on .cap>*:nth-child(5){transition-delay:.24s}
+/* side actions */
+.acts{position:absolute;z-index:3;inset-inline-end:14px;bottom:calc(40px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:18px;align-items:center}
+.act{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--mute)}
+.act .c{width:52px;height:52px;border-radius:50%;background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:grid;place-items:center;border:1px solid #ffffff22;transition:transform .2s,background .2s}
+.act .c svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round}
+.act.in .c{background:var(--red);border-color:var(--red)}
+.act:active .c{transform:scale(.88)}
+/* cover */
+.cover{flex-direction:column;justify-content:center;align-items:center;text-align:center;background:radial-gradient(80% 60% at 50% 40%,#3a0d12,var(--night))}
+.cover::after{display:none}
+.cover img{width:120px}
+.cover h1{font-family:var(--display);font-weight:400;font-size:46px;margin:18px 0 0;line-height:1.1}
+.cover p{color:var(--mute);margin:8px 0 0;font-size:14px}
+.swipe{margin-top:44px;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:12px;color:var(--mute)}
+.swipe i{width:26px;height:42px;border:2px solid #ffffffaa;border-radius:14px;position:relative}
+.swipe i::after{content:"";position:absolute;left:50%;top:22px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:#fff;animation:up 1.4s infinite}
+@keyframes up{0%{opacity:0;transform:translateY(6px)}40%{opacity:1}100%{opacity:0;transform:translateY(-12px)}}
+/* top chrome */
+.top{position:absolute;z-index:6;inset:0 0 auto;padding:calc(10px + env(safe-area-inset-top)) 0 0;background:linear-gradient(#070B10cc,transparent);pointer-events:none}
+.top>*{pointer-events:auto}
+.bubbles{display:flex;gap:12px;overflow-x:auto;padding:4px 14px 6px;scrollbar-width:none}
+.bubbles::-webkit-scrollbar{display:none}
+.bub{flex:none;width:58px;text-align:center;font-size:10px;color:var(--mute)}
+.bub .r{width:54px;height:54px;border-radius:50%;padding:2.5px;background:#ffffff33;margin:0 auto 4px;display:block}
+.bub .r img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:2.5px solid var(--night);display:block}
+.bub.on .r{background:conic-gradient(var(--gold),var(--red),#ff5fa2,var(--gold))}
+.bub.on{color:#fff}
+.bub span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bars{display:flex;gap:3px;padding:2px 14px 0;height:6px}
+.bars i{flex:1;height:2.5px;border-radius:2px;background:#ffffff38;overflow:hidden}
+.bars i.done{background:#fff}
+.bars i.cur{background:linear-gradient(90deg,#ffffff38 0 0);position:relative}
+.bars i.cur::after{content:"";position:absolute;inset:0;background:#fff;transform-origin:right;animation:fill 4s linear forwards}
+@keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.tray-btn{position:absolute;z-index:7;top:calc(86px + env(safe-area-inset-top));inset-inline-start:14px;display:flex;align-items:center;gap:8px;background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid #ffffff22;border-radius:30px;padding:7px 12px 7px 8px;font-size:12.5px}
+.tray-btn b{min-width:22px;height:22px;border-radius:11px;background:var(--red);display:grid;place-items:center;font-size:12px;padding:0 6px}
+.tray-btn.bump{animation:bump .4s}
+@keyframes bump{50%{transform:scale(1.15)}}
+/* tray sheet */
+.veil{position:absolute;inset:0;z-index:9;background:#000a;opacity:0;pointer-events:none;transition:opacity .3s}
+.sheet{position:absolute;z-index:10;inset:auto 0 0;background:#111A22;border-radius:26px 26px 0 0;padding:20px 18px calc(22px + env(safe-area-inset-bottom));transform:translateY(105%);transition:transform .4s cubic-bezier(.2,.8,.2,1);max-height:80%;overflow:auto}
+.tray-open .veil{opacity:1;pointer-events:auto}.tray-open .sheet{transform:none}
+.sheet h3{font-family:var(--display);font-weight:400;font-size:30px;margin:0}
+.sheet .sub{color:var(--mute);font-size:12.5px;margin-top:2px}
+.ln{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #ffffff12}
+.ln img{width:52px;height:52px;border-radius:12px;object-fit:cover;flex:none;background:#1c2833}
+.ln .t{flex:1;min-width:0}.ln .t b{display:block;font-size:14px}.ln .t small{color:var(--mute);font-size:12px}
+.qty{display:flex;align-items:center;gap:10px;background:#ffffff10;border-radius:20px;padding:4px}
+.qty button{width:28px;height:28px;border-radius:50%;background:#ffffff14;font-size:16px;line-height:1}
+.tot{display:flex;justify-content:space-between;align-items:baseline;margin-top:16px;font-size:14px;color:var(--mute)}
+.tot b{font-size:24px;color:#fff}
+.empty{color:var(--mute);text-align:center;padding:26px 0;font-size:14px;line-height:1.8}
+.clear{margin-top:14px;width:100%;border:1px solid #ffffff30;border-radius:14px;padding:12px;font-size:13px;color:var(--mute)}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div id="feed"></div>
+  <div class="top"><div class="bubbles" id="bubbles"></div><div class="bars" id="bars"></div></div>
+  <button class="tray-btn" id="trayBtn"><b id="tc">٠</b>طلبيتي</button>
+  <div class="veil" id="veil"></div>
+  <div class="sheet" id="sheet"></div>
+</div>
+<script src="demo/common.js"></script>
+<script>
+const $ = s => document.querySelector(s), E = MU.esc;
+const plus = '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>', check = '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+const info = '<svg viewBox="0 0 24 24"><path d="M4 12h16M4 6h16M4 18h10"/></svg>';
+let M, reels = [], cur = -1;
+function reel(it, s, i) {
+  const q = MU.tray.get(it.key);
+  return `<article class="reel" data-k="${it.key}" data-s="${M.sections.indexOf(s)}" data-i="${i}">
+    ${it.i ? `<img class="blur" src="${it.i}" alt="" loading="lazy"><img class="hero" src="${it.i}" alt="" loading="lazy">` : `<img class="blur" src="${s.c}" alt="" loading="lazy">`}
+    <div class="cap"><div class="k"><b>${E(s.ar)}</b>${MU.num(i + 1)} / ${MU.num(s.items.length)}</div>
+      <h2>${E(it.ar)}</h2><div class="en">${E(it.en)}</div>${it.d ? `<p>${E(it.d)}</p>` : ''}
+      <div><span class="pr">${MU.price(it.p)}${it.p ? '<small>د.ع</small>' : ''}</span>${it.s ? '<span class="chip">توقيع مراد</span>' : it.best ? '<span class="chip">الأكثر طلباً</span>' : ''}</div></div>
+    <div class="acts"><button class="act${q ? ' in' : ''}" data-add="${it.key}"><span class="c">${q ? check : plus}</span><span class="lbl">${q ? 'بطلبيتك ' + MU.num(q) : 'أضف'}</span></button>
+      <button class="act" data-next="${M.sections.indexOf(s)}"><span class="c">${info}</span><span>القسم الجاي</span></button></div></article>`;
+}
+function render() {
+  let h = `<article class="reel cover" data-s="-1"><img src="img/logo.png" alt="مراد"><h1>منيو مراد</h1><p>كل طبق بشاشة · ${MU.num(M.all.length)} طبق</p><div class="swipe"><i></i>اسحب لفوق</div></article>`;
+  M.sections.forEach(s => s.items.forEach((it, i) => h += reel(it, s, i)));
+  $('#feed').innerHTML = h; reels = [...document.querySelectorAll('.reel')];
+  $('#bubbles').innerHTML = M.sections.map((s, si) => `<button class="bub" data-s="${si}"><span class="r"><img src="${s.c}" alt="" loading="lazy"></span><span>${E(s.ar)}</span></button>`).join('');
+  document.querySelectorAll('.bub').forEach(b => b.onclick = () => go(+b.dataset.s));
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) activate(e.target); }), {root: $('#feed'), threshold: .6});
+  reels.forEach(r => io.observe(r));
+  $('#feed').addEventListener('click', e => {
+    const a = e.target.closest('[data-add]'); if (a) return add(a);
+    const n = e.target.closest('[data-next]'); if (n) go(Math.min(+n.dataset.next + 1, M.sections.length - 1));
+  });
+  count();
+}
+function activate(r) {
+  reels.forEach(x => x.classList.toggle('on', x === r));
+  const si = +r.dataset.s; if (si === cur && si >= 0) return bars(si, +r.dataset.i);
+  cur = si;
+  document.querySelectorAll('.bub').forEach(b => b.classList.toggle('on', +b.dataset.s === si));
+  const on = $('.bub.on'); on && on.scrollIntoView({inline: 'center', block: 'nearest', behavior: 'smooth'});
+  bars(si, +r.dataset.i);
+}
+function bars(si, i) {
+  if (si < 0) { $('#bars').innerHTML = ''; return; }
+  $('#bars').innerHTML = M.sections[si].items.map((_, k) => `<i class="${k < i ? 'done' : k === i ? 'cur' : ''}"></i>`).join('');
+}
+function go(si) { const r = reels.find(x => +x.dataset.s === si); r && $('#feed').scrollTo({top: r.offsetTop}); }
+function add(btn) {
+  const k = btn.dataset.add; MU.tray.add(k); const q = MU.tray.get(k);
+  btn.classList.add('in'); btn.querySelector('.c').innerHTML = check; btn.querySelector('.lbl').textContent = 'بطلبيتك ' + MU.num(q);
+  count(true);
+}
+function count(b) { $('#tc').textContent = MU.num(MU.tray.count()); if (b) { const t = $('#trayBtn'); t.classList.remove('bump'); void t.offsetWidth; t.classList.add('bump'); } }
+function tray() {
+  const L = MU.tray.lines(M);
+  $('#sheet').innerHTML = `<h3>طلبيتي</h3><div class="sub">ورجيها للكابتن لما يجي ياخد الطلب</div>` +
+    (L.length ? L.map(({it, q}) => `<div class="ln">${it.i ? `<img src="${it.i}" alt="">` : '<img alt="">'}<div class="t"><b>${E(it.ar)}</b><small>${MU.price(it.p)} د.ع</small></div>
+      <div class="qty"><button data-q="${it.key}" data-d="1" aria-label="زيد">+</button><span>${MU.num(q)}</span><button data-q="${it.key}" data-d="-1" aria-label="نقّص">−</button></div></div>`).join('') +
+      `<div class="tot"><span>المجموع التقريبي</span><b>${MU.num(MU.tray.total(M))} د.ع</b></div><button class="clear" id="clr">فضّي الطلبية</button>`
+    : '<div class="empty">طلبيتك فاضية<br>اكبس + على أي طبق ليصير هون</div>');
+  document.querySelectorAll('[data-q]').forEach(b => b.onclick = () => { MU.tray.add(b.dataset.q, +b.dataset.d); tray(); count(); syncActs(); });
+  const c = $('#clr'); if (c) c.onclick = () => { MU.tray.clear(); tray(); count(); syncActs(); };
+}
+function syncActs() { document.querySelectorAll('[data-add]').forEach(b => { const q = MU.tray.get(b.dataset.add); b.classList.toggle('in', !!q); b.querySelector('.c').innerHTML = q ? check : plus; b.querySelector('.lbl').textContent = q ? 'بطلبيتك ' + MU.num(q) : 'أضف'; }); }
+$('#trayBtn').onclick = () => { tray(); $('#app').classList.add('tray-open'); };
+$('#veil').onclick = () => $('#app').classList.remove('tray-open');
+addEventListener('keydown', e => { if (e.key === 'Escape') $('#app').classList.remove('tray-open');
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); $('#feed').scrollBy({top: (e.key === 'ArrowDown' ? 1 : -1) * innerHeight, behavior: 'smooth'}); } });
+MU.load().then(m => { M = m; render(); });
+</script>
+</body>
+</html>
