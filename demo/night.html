@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<base href="../">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#2b1e3e">
+<title>سهرة · مراد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Changa:wght@500;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* Theme: Midnight Galaxy (themes-pro). Layout: each section is its own page; swipe sideways to turn pages, the huge section name slides at a different speed than the page */
+:root{
+  --night:#2b1e3e; --night2:#22172f; --cosmic:#4a4e8f; --lav:#a490c2; --silver:#e6e6fa;
+  --display:'Changa','Tajawal',sans-serif; --body:'Tajawal',Tahoma,sans-serif; color-scheme:dark;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--night);color:var(--silver);font-family:var(--body)}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:inherit}
+.app{position:relative;height:100%;max-width:540px;margin:0 auto}
+#pager{position:absolute;inset:0 0 calc(64px + env(safe-area-inset-bottom));display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+#pager::-webkit-scrollbar{display:none}
+.page{flex:none;width:100%;height:100%;overflow-y:auto;scroll-snap-align:start;scroll-snap-stop:always;overscroll-behavior-y:contain;scrollbar-width:none}
+.page::-webkit-scrollbar{display:none}
+.cover{position:relative;height:min(42vh,340px);overflow:hidden}
+.cover>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.75}
+.cover::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,var(--night) 4%,#2b1e3e99 45%,#2b1e3e33)}
+.ttl{position:absolute;z-index:1;bottom:6px;inset-inline-start:20px;white-space:nowrap;will-change:transform}
+.ttl h2{font-family:var(--display);font-weight:800;font-size:56px;line-height:1;margin:0}
+.ttl p{margin:6px 0 0;color:var(--lav);font-size:14px}
+.top{position:absolute;z-index:2;top:calc(12px + env(safe-area-inset-top));left:16px;right:16px;display:flex;justify-content:space-between;align-items:center}
+.top span{order:-1}
+.top img{width:40px}
+.top span{font-size:12.5px;color:var(--silver);background:#22172fb3;border-radius:20px;padding:5px 12px;font-variant-numeric:tabular-nums}
+.rows{padding:14px 18px 30px;display:flex;flex-direction:column}
+.row{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid #a490c226;width:100%}
+.row img{width:66px;height:66px;border-radius:20px;object-fit:cover;flex:none;background:var(--night2)}
+.row .t{flex:1;min-width:0}
+.row b{display:block;font-weight:700;font-size:16px;line-height:1.35}
+.row small{display:block;color:var(--lav);font-size:12.5px;margin-top:1px}
+.row .p{font-family:var(--display);font-weight:500;font-size:16px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.row .p i{font-style:normal;font-family:var(--body);font-size:11px;color:var(--lav);margin-inline-start:3px}
+.row .sg{display:inline-block;margin-top:5px;font-size:11px;color:var(--night);background:var(--lav);border-radius:10px;padding:1px 8px}
+.hint{display:flex;align-items:center;gap:10px;margin:8px 18px 0;padding:12px 14px;border-radius:16px;background:#4a4e8f40;font-size:13.5px;color:var(--silver)}
+.hint svg{width:30px;height:18px;flex:none;stroke:var(--lav);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;animation:nudge 1.6s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateX(-6px)}}
+/* tab bar */
+.tabs{position:absolute;inset:auto 0 0;height:calc(64px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:var(--night2);border-top:1px solid #a490c22e;display:flex;align-items:center}
+.tabs-in{display:flex;gap:6px;overflow-x:auto;padding:0 12px;scrollbar-width:none;width:100%}
+.tabs-in::-webkit-scrollbar{display:none}
+.tab{flex:none;padding:9px 14px;border-radius:22px;font-size:13.5px;color:var(--lav);white-space:nowrap;transition:background .25s,color .25s}
+.tab.on{background:var(--lav);color:var(--night);font-weight:700}
+.sep{flex:none;width:1px;height:22px;background:#a490c240;margin:0 4px;align-self:center}
+/* detail */
+.veil{position:absolute;inset:0;z-index:9;background:#120b1cb3;opacity:0;pointer-events:none;transition:opacity .3s}
+.sheet{position:absolute;inset:auto 0 0;z-index:10;background:var(--night2);border-radius:26px 26px 0 0;overflow:hidden;transform:translateY(105%);transition:transform .4s cubic-bezier(.2,.8,.2,1);max-height:88%;overflow-y:auto}
+.open .veil{opacity:1;pointer-events:auto}.open .sheet{transform:none}
+.sheet img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+.sheet .b{padding:18px 20px calc(24px + env(safe-area-inset-bottom))}
+.sheet h3{font-family:var(--display);font-weight:800;font-size:30px;margin:0;line-height:1.15}
+.sheet .en{color:var(--lav);font-size:13px;margin-top:4px}
+.sheet .ds{font-size:14.5px;line-height:1.8;margin:12px 0 0}
+.sheet .f{display:flex;justify-content:space-between;align-items:center;margin-top:18px}
+.sheet .f b{font-family:var(--display);font-size:24px}
+.sheet .f button{border:1px solid var(--lav);color:var(--lav);border-radius:22px;padding:8px 18px;font-size:13px}
+button:focus-visible{outline:2px solid var(--lav);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div id="pager"></div>
+  <nav class="tabs"><div class="tabs-in" id="tabs"></div></nav>
+  <div class="veil" id="veil"></div>
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true"></div>
+</div>
+<script src="demo/common.js"></script>
+<script>
+const $ = s => document.querySelector(s), E = MU.esc;
+let M, pages = [], cur = -1;
+const arrow = '<svg viewBox="0 0 30 18"><path d="M28 9H3M9 3L3 9l6 6"/></svg>';
+function page(id, title, sub, cover, items, n, total, first) {
+  return `<div class="page" id="${id}"><div class="cover"><img src="${cover}" alt="" loading="lazy"><div class="top"><img src="img/logo.png" alt="مراد"><span>${MU.num(n)} من ${MU.num(total)}</span></div>
+    <div class="ttl"><h2>${E(title)}</h2><p>${E(sub)}</p></div></div>${first ? `<div class="hint">${arrow}اسحب الصفحة لتقلّب بين الأقسام</div>` : ''}
+    <div class="rows">${items.map(it => `<button class="row" data-k="${it.key}"><img src="${it.i || cover}" alt="" loading="lazy"><div class="t"><b>${E(it.ar)}</b><small>${E(it.en)}</small>${it.s ? '<span class="sg">توقيع مراد</span>' : ''}</div><span class="p">${it.p ? MU.num(it.p) + '<i>د.ع</i>' : 'حسب الطلب'}</span></button>`).join('')}</div></div>`;
+}
+function render() {
+  const total = M.sections.length + 1;
+  let h = page('p0', 'الأكثر طلباً', 'تمن أطباق ما بتغلط فيهن', M.best[1].i, M.best, 1, total, true);
+  M.sections.forEach((s, si) => h += page('p' + (si + 1), s.ar, s.en, s.c, s.items, si + 2, total, false));
+  $('#pager').innerHTML = h; pages = [...document.querySelectorAll('.page')];
+  let t = `<button class="tab" data-i="0">الأكثر طلباً</button>`, g = '';
+  M.sections.forEach((s, si) => { if (s.g !== g) { g = s.g; t += '<span class="sep"></span>'; } t += `<button class="tab" data-i="${si + 1}">${E(s.ar)}</button>`; });
+  $('#tabs').innerHTML = t;
+  document.querySelectorAll('.tab').forEach(b => b.onclick = () => go(+b.dataset.i));
+  $('#pager').addEventListener('click', e => { const r = e.target.closest('[data-k]'); if (r) detail(r.dataset.k); });
+  $('#pager').addEventListener('scroll', onScroll, {passive: true});
+  onScroll();
+}
+function go(i) { $('#pager').scrollTo({left: -i * $('#pager').clientWidth * (getComputedStyle($('#pager')).direction === 'rtl' ? 1 : -1), behavior: 'smooth'}); }
+function onScroll() {
+  const w = $('#pager').clientWidth, x = Math.abs($('#pager').scrollLeft) / w, i = Math.round(x);
+  pages.forEach((p, k) => { const d = k - x; if (Math.abs(d) < 1.5) p.querySelector('.ttl').style.transform = `translateX(${-d * w * .45}px)`; });
+  if (i !== cur) { cur = i; document.querySelectorAll('.tab').forEach(b => b.classList.toggle('on', +b.dataset.i === i));
+    const on = $('.tab.on'); on && on.scrollIntoView({inline: 'center', block: 'nearest', behavior: 'smooth'}); }
+}
+function detail(k) {
+  const it = M.all.find(x => x.key === k);
+  $('#sheet').innerHTML = `${it.i ? `<img src="${it.i}" alt="">` : ''}<div class="b"><h3>${E(it.ar)}</h3><div class="en">${E(it.en)}</div>${it.d ? `<p class="ds">${E(it.d)}</p>` : ''}
+    <div class="f"><b>${MU.price(it.p)}${it.p ? ' د.ع' : ''}</b><button id="cl">سكّر</button></div></div>`;
+  $('#app').classList.add('open'); $('#cl').onclick = close;
+}
+function close() { $('#app').classList.remove('open'); }
+$('#veil').onclick = close;
+addEventListener('keydown', e => { if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') go(cur + 1); if (e.key === 'ArrowRight') go(Math.max(0, cur - 1)); });
+addEventListener('resize', () => M && onScroll());
+MU.load().then(m => { M = m; render(); });
+</script>
+</body>
+</html>

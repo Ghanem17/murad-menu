@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<base href="../">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1a2332">
+<title>عُمق · مراد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+/* Theme: Ocean Depths (themes-pro). Layout: one quiet column; photos have no frames and dissolve into the navy, a thin depth gauge on the edge shows how far down you are */
+:root{
+  --navy:#1a2332; --deep:#131b27; --teal:#2d8b8b; --foam:#a8dadc; --cream:#f1faee;
+  --font:'IBM Plex Sans Arabic',Tahoma,sans-serif; color-scheme:dark;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--navy);color:var(--cream);font-family:var(--font)}
+body{overflow-x:hidden}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:inherit}
+.col{max-width:540px;margin:0 auto;padding:0 22px}
+.top{position:sticky;top:0;z-index:5;background:linear-gradient(var(--navy) 70%,transparent);padding:calc(14px + env(safe-area-inset-top)) 0 18px}
+.top .col{display:flex;align-items:center;justify-content:space-between}
+.top img{width:44px}
+.map-btn{display:flex;align-items:center;gap:8px;border:1px solid #a8dadc40;border-radius:24px;padding:7px 14px;font-size:13px;color:var(--foam)}
+.map-btn b{font-weight:500;color:var(--cream);max-width:150px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.intro{padding:24px 0 10px}
+.intro h1{font-weight:300;font-size:40px;line-height:1.2;margin:0;text-wrap:balance}
+.intro p{color:var(--foam);font-size:15px;line-height:1.8;margin:12px 0 0;max-width:34ch}
+/* gauge */
+.gauge{position:fixed;top:0;bottom:0;inset-inline-end:max(8px,env(safe-area-inset-left));width:2px;background:#a8dadc1f;z-index:4}
+.gauge i{position:absolute;inset:0 0 auto;background:var(--teal);height:0}
+/* sections */
+.group{color:var(--teal);font-size:14px;font-weight:500;margin:70px 0 0;padding-top:16px;border-top:1px solid #a8dadc26}
+section{scroll-margin-top:70px}
+.sh{margin:46px 0 6px}
+.sh h2{font-weight:700;font-size:30px;margin:0;line-height:1.25}
+.sh p{margin:4px 0 0;color:var(--foam);font-size:13px;opacity:.75}
+.dish{display:block;width:100%;margin-top:28px}
+.ph{position:relative;margin:0 -22px;aspect-ratio:16/10;overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover;display:block;-webkit-mask:radial-gradient(closest-side,#000 58%,transparent 100%);mask:radial-gradient(closest-side,#000 58%,transparent 100%)}
+.dish .tx{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-top:-18px;position:relative}
+.dish b{font-weight:500;font-size:19px;line-height:1.4}
+.dish .p{color:var(--foam);font-size:17px;font-weight:500;white-space:nowrap;font-variant-numeric:tabular-nums}
+.dish .p small{font-size:12px;color:var(--teal);margin-inline-start:4px;font-weight:500}
+.dish .en{color:#a8dadc99;font-size:13px;margin-top:2px}
+.dish .ds{color:#d5e3e6;font-size:14px;line-height:1.85;margin:10px 0 0;max-width:46ch}
+.dish .sig{display:inline-block;margin-top:10px;font-size:12px;color:var(--teal);border-bottom:1px solid var(--teal)}
+.dish.nophoto{padding-top:10px;border-top:1px solid #a8dadc1a}.dish.nophoto .tx{margin-top:12px}
+/* compact: a calm two-column price list */
+.list{display:grid;grid-template-columns:1fr 1fr;column-gap:22px;margin-top:18px}
+.li{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #a8dadc1a;min-width:0}
+.li img{width:42px;height:42px;border-radius:50%;object-fit:cover;flex:none;opacity:.92}
+.li div{min-width:0;flex:1}
+.li b{display:block;font-weight:500;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.li span{color:var(--foam);font-size:13px;font-variant-numeric:tabular-nums}
+.end{color:var(--foam);font-size:13px;text-align:center;padding:80px 0 calc(50px + env(safe-area-inset-bottom));line-height:1.9}
+/* map sheet */
+.veil{position:fixed;inset:0;background:#0a0f17b3;opacity:0;pointer-events:none;transition:opacity .3s;z-index:9}
+.map{position:fixed;inset:auto 0 0;z-index:10;max-width:560px;margin:0 auto;background:var(--deep);border-radius:24px 24px 0 0;padding:22px 22px calc(26px + env(safe-area-inset-bottom));max-height:82svh;overflow:auto;transform:translateY(105%);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.open .veil{opacity:1;pointer-events:auto}.open .map{transform:none}
+.map h3{font-size:14px;font-weight:500;color:var(--teal);margin:22px 0 6px}
+.map h3:first-child{margin-top:0}
+.map a{display:flex;justify-content:space-between;gap:12px;padding:9px 0;color:var(--cream);text-decoration:none;font-size:16px;border-bottom:1px solid #a8dadc14}
+.map a span{color:#a8dadc99;font-size:13px}
+.map a.on{color:var(--foam)}.map a.on::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--teal);align-self:center;margin-inline-end:-4px}
+button:focus-visible,a:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="gauge" aria-hidden="true"><i id="g"></i></div>
+<header class="top"><div class="col"><img src="img/logo.png" alt="مراد"><button class="map-btn" id="mb">الأقسام <b id="cur">الأكثر طلباً</b></button></div></header>
+<main class="col">
+  <div class="intro"><h1>على مهلك، المنيو كله هون</h1><p>انزل لتحت وشوف الأطباق متل ما بتوصلك عالطاولة، أو افتح الأقسام وروح مباشرة للي بدك ياه.</p></div>
+  <div id="list"></div>
+  <div class="end">الأسعار بالدينار العراقي<br>@murad.restaurant</div>
+</main>
+<div class="veil" id="veil"></div>
+<nav class="map" id="map" aria-label="الأقسام"></nav>
+<script src="demo/common.js"></script>
+<script>
+const $ = s => document.querySelector(s), E = MU.esc;
+const GN = {kitchen: 'المطبخ', cafe: 'الكافيه', sweet: 'الحلو والأركيلة', feast: 'ولائم مراد'};
+const pr = p => p ? `${MU.num(p)}<small>د.ع</small>` : 'حسب الطلب';
+function dish(it) {
+  return `<article class="dish${it.i ? '' : ' nophoto'}">${it.i ? `<div class="ph"><img src="${it.i}" alt="" loading="lazy"></div>` : ''}
+    <div class="tx"><b>${E(it.ar)}</b><span class="p">${pr(it.p)}</span></div><div class="en">${E(it.en)}</div>
+    ${it.d ? `<p class="ds">${E(it.d)}</p>` : ''}${it.s ? '<span class="sig">من أطباق توقيع مراد</span>' : ''}</article>`;
+}
+const li = (it, s) => `<div class="li"><img src="${it.i || s.c}" alt="" loading="lazy"><div><b>${E(it.ar)}</b><span>${MU.price(it.p)}</span></div></div>`;
+MU.load().then(M => {
+  let h = `<section id="best" data-n="الأكثر طلباً"><div class="sh"><h2>الأكثر طلباً</h2><p>تمن أطباق بيرجعولها الزباين كل مرة</p></div>${M.best.map(dish).join('')}</section>`;
+  let map = `<h3>البداية</h3><a href="#best" data-t="best">الأكثر طلباً <span>${MU.num(M.best.length)}</span></a>`, g = '';
+  M.sections.forEach((s, si) => {
+    if (s.g !== g) { g = s.g; h += `<div class="group">${GN[g]}</div>`; map += `<h3>${GN[g]}</h3>`; }
+    h += `<section id="s${si}" data-n="${E(s.ar)}"><div class="sh"><h2>${E(s.ar)}</h2><p>${E(s.en)}</p></div>${s.compact ? `<div class="list">${s.items.map(it => li(it, s)).join('')}</div>` : s.items.map(dish).join('')}</section>`;
+    map += `<a href="#s${si}" data-t="s${si}">${E(s.ar)} <span>${MU.num(s.items.length)}</span></a>`;
+  });
+  $('#list').innerHTML = h; $('#map').innerHTML = map;
+  document.querySelectorAll('#map a').forEach(a => a.onclick = e => { e.preventDefault(); document.body.classList.remove('open'); scrollTo({top: document.getElementById(a.dataset.t).offsetTop - 60}); });
+  const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; $('#cur').textContent = e.target.dataset.n;
+    document.querySelectorAll('#map a').forEach(a => a.classList.toggle('on', a.dataset.t === e.target.id)); }), {rootMargin: '-80px 0px -75% 0px'});
+  document.querySelectorAll('section').forEach(s => io.observe(s));
+});
+const gauge = () => { const m = document.documentElement.scrollHeight - innerHeight; $('#g').style.height = (m > 0 ? scrollY / m * 100 : 0) + '%'; };
+addEventListener('scroll', gauge, {passive: true});
+$('#mb').onclick = () => document.body.classList.add('open');
+$('#veil').onclick = () => document.body.classList.remove('open');
+addEventListener('keydown', e => e.key === 'Escape' && document.body.classList.remove('open'));
+</script>
+</body>
+</html>

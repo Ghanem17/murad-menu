@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<base href="../">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#4a7c59">
+<title>فاتورة · مراد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Noto+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* Theme: Botanical Garden (themes-pro). Layout: the menu is an order pad. Plus/minus on every dish, a running total at the bottom, and a paper receipt that prints out for the waiter */
+:root{
+  --fern:#4a7c59; --fern2:#3f6b4c; --fern3:#355a40; --marigold:#f9a620; --terra:#b7472a; --cream:#f5f3ed; --ink:#2a3a2e;
+  --display:'Amiri','Noto Sans Arabic',serif; --body:'Noto Sans Arabic',Tahoma,sans-serif; color-scheme:dark;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--fern);color:var(--cream);font-family:var(--body)}
+body{overflow-x:hidden}
+button,input{font:inherit;color:inherit}
+button{background:none;border:0;padding:0;cursor:pointer}
+.wrap{max-width:540px;margin:0 auto;padding:0 18px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 8px;display:flex;gap:16px;align-items:center}
+header img{width:62px;flex:none}
+header h1{font-family:var(--display);font-size:34px;line-height:1.2;margin:0}
+header p{margin:2px 0 0;font-size:13.5px;line-height:1.7;color:#dfe8df}
+nav{position:sticky;top:0;z-index:5;background:var(--fern);border-bottom:1px solid #f5f3ed2b}
+.chips{display:flex;gap:18px;overflow-x:auto;padding:12px 18px 0;scrollbar-width:none;max-width:540px;margin:0 auto}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;font-size:14px;padding-bottom:10px;border-bottom:2.5px solid transparent;color:#dfe8dfcc;white-space:nowrap}
+.chips button.on{color:var(--cream);border-color:var(--marigold);font-weight:500}
+section{scroll-margin-top:60px;padding-top:28px}
+section h2{font-family:var(--display);font-size:28px;margin:0 0 4px;line-height:1.3}
+section h2 small{font-family:var(--body);font-size:12.5px;font-weight:400;color:#dfe8dfaa;margin-inline-start:10px}
+.it{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px dashed #f5f3ed33}
+.it img{width:60px;height:60px;border-radius:14px;object-fit:cover;flex:none;background:var(--fern2)}
+.it .t{flex:1;min-width:0}
+.it b{display:block;font-weight:500;font-size:15.5px;line-height:1.4}
+.it small{display:block;font-size:12px;color:#dfe8dfb3}
+.it .p{display:block;color:var(--marigold);font-weight:700;font-size:14px;margin-top:3px;font-variant-numeric:tabular-nums}
+.it .sg{color:var(--cream);background:var(--terra);font-size:10.5px;border-radius:8px;padding:1px 7px;margin-inline-start:6px;font-weight:500;vertical-align:2px}
+.step{display:flex;align-items:center;gap:2px;flex:none}
+.step button{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:20px;line-height:1}
+.step .add{background:var(--marigold);color:var(--ink);font-weight:700}
+.step .sub{background:#f5f3ed1f}
+.step span{min-width:26px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.end{text-align:center;font-size:13px;color:#dfe8dfb3;padding:40px 0 calc(110px + env(safe-area-inset-bottom));line-height:1.9}
+/* total bar */
+.bar{position:fixed;z-index:8;inset:auto 0 0;padding:0 14px calc(14px + env(safe-area-inset-bottom));transform:translateY(130%);transition:transform .35s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.bar.on{transform:none;pointer-events:auto}
+.bar button{max-width:512px;margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--cream);color:var(--ink);border-radius:18px;padding:14px 18px;box-shadow:0 14px 30px -10px #0008;font-weight:700}
+.bar .n{background:var(--fern);color:var(--cream);border-radius:12px;padding:2px 10px;font-size:13px;margin-inline-end:8px}
+/* receipt */
+.room{position:fixed;inset:0;z-index:20;background:#22382acc;display:flex;flex-direction:column;align-items:center;padding:calc(30px + env(safe-area-inset-top)) 18px calc(20px + env(safe-area-inset-bottom));opacity:0;pointer-events:none;transition:opacity .25s;overflow-y:auto}
+.room.on{opacity:1;pointer-events:auto}
+.slot{width:min(100%,380px);height:14px;border-radius:8px;background:#1b2b20;box-shadow:inset 0 3px 6px #000a;position:relative;z-index:2;flex:none}
+.feed{width:min(100% - 24px,356px);overflow:hidden;margin-top:-7px;flex:none}
+.paper{background:var(--cream);color:var(--ink);padding:26px 20px 34px;transform:translateY(-102%);font-size:13.5px;
+  -webkit-mask:linear-gradient(#000,#000) top/100% calc(100% - 10px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/16px 10px repeat-x;
+  mask:linear-gradient(#000,#000) top/100% calc(100% - 10px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/16px 10px repeat-x}
+.room.on .paper{transform:none;transition:transform 1.6s steps(14,end)}
+.paper .hd{text-align:center;border-bottom:1.5px dashed #2a3a2e66;padding-bottom:12px}
+.paper .hd b{font-family:var(--display);font-size:26px;display:block;line-height:1.2}
+.paper .hd span{font-size:12px;color:#55665a}
+.ln{display:flex;gap:8px;padding:7px 0;align-items:baseline}
+.ln .q{font-weight:700;min-width:28px}
+.ln .nm{flex:1;min-width:0}
+.ln .v{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tot{display:flex;justify-content:space-between;border-top:1.5px dashed #2a3a2e66;margin-top:8px;padding-top:12px;font-size:16px;font-weight:700}
+.tbl{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:13px}
+.tbl input{width:70px;border:0;border-bottom:1.5px solid var(--ink);background:transparent;padding:4px;text-align:center;font-weight:700;color:var(--ink)}
+.note{font-size:12px;color:#55665a;line-height:1.7;margin-top:14px;text-align:center}
+.acts{display:flex;gap:10px;width:min(100%,380px);margin-top:18px;flex:none}
+.acts button{flex:1;border-radius:14px;padding:12px;font-weight:500}
+.acts .k{background:var(--marigold);color:var(--ink);font-weight:700}
+.acts .c{border:1px solid #f5f3ed66}
+button:focus-visible,input:focus-visible{outline:2px solid var(--marigold);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap"><header><img src="img/logo.png" alt="مراد"><div><h1>اختار، ونحنا منكتب</h1><p>زيد الأصناف اللي بدك ياها، وبالأخير بتطلعلك فاتورة بتوريها للكابتن.</p></div></header></div>
+<nav><div class="chips" id="chips"></div></nav>
+<main class="wrap" id="list"></main>
+<div class="wrap end">الأسعار بالدينار العراقي، والفاتورة هون تقريبية<br>@murad.restaurant</div>
+<div class="bar" id="bar"><button id="show"><span><span class="n" id="cnt"></span>شوف الفاتورة</span><span id="sum"></span></button></div>
+<div class="room" id="room" role="dialog" aria-modal="true"><div class="slot"></div><div class="feed"><div class="paper" id="paper"></div></div>
+  <div class="acts"><button class="c" id="back">زيد كمان</button><button class="k" id="clr">فاتورة جديدة</button></div></div>
+<script src="demo/common.js"></script>
+<script>
+const $ = s => document.querySelector(s), E = MU.esc;
+let M;
+function step(k) { const q = MU.tray.get(k); return q ? `<button class="sub" data-d="-1" data-k="${k}" aria-label="نقّص">−</button><span>${MU.num(q)}</span><button class="add" data-d="1" data-k="${k}" aria-label="زيد">+</button>` : `<button class="add" data-d="1" data-k="${k}" aria-label="زيد">+</button>`; }
+function row(it, s) { return `<div class="it"><img src="${it.i || s.c}" alt="" loading="lazy"><div class="t"><b>${E(it.ar)}${it.s ? '<span class="sg">توقيع مراد</span>' : ''}</b><small>${E(it.en)}</small><span class="p">${MU.price(it.p)}${it.p ? ' د.ع' : ''}</span></div><div class="step" id="st-${it.key}">${step(it.key)}</div></div>`; }
+function render() {
+  let h = `<section id="best"><h2>الأكثر طلباً</h2>${M.best.map(it => row(it, it.sec)).join('')}</section>`;
+  M.sections.forEach((s, si) => h += `<section id="s${si}"><h2>${E(s.ar)}<small>${E(s.en)}</small></h2>${s.items.map(it => row(it, s)).join('')}</section>`);
+  $('#list').innerHTML = h;
+  $('#chips').innerHTML = `<button data-t="best">الأكثر طلباً</button>` + M.sections.map((s, si) => `<button data-t="s${si}">${E(s.ar)}</button>`).join('');
+  document.querySelectorAll('#chips button').forEach(b => b.onclick = () => scrollTo({top: document.getElementById(b.dataset.t).offsetTop - 50, behavior: 'smooth'}));
+  $('#list').addEventListener('click', e => { const b = e.target.closest('[data-d]'); if (!b) return; MU.tray.add(b.dataset.k, +b.dataset.d); refresh(b.dataset.k); });
+  const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; document.querySelectorAll('#chips button').forEach(b => b.classList.toggle('on', b.dataset.t === e.target.id));
+    const on = $('#chips .on'); on && on.scrollIntoView({inline: 'center', block: 'nearest', behavior: 'smooth'}); }), {rootMargin: '-70px 0px -75% 0px'});
+  document.querySelectorAll('section').forEach(s => io.observe(s));
+  bar();
+}
+function refresh(k) { document.querySelectorAll('#st-' + CSS.escape(k)).forEach(el => el.innerHTML = step(k)); bar(); }
+function bar() { const n = MU.tray.count(); $('#bar').classList.toggle('on', n > 0); $('#cnt').textContent = MU.num(n); $('#sum').textContent = MU.num(MU.tray.total(M)) + ' د.ع'; }
+function receipt() {
+  const L = MU.tray.lines(M), d = new Date();
+  const when = d.toLocaleDateString('ar-EG', {day: 'numeric', month: 'long'}) + '، الساعة ' + d.toLocaleTimeString('ar-EG', {hour: 'numeric', minute: '2-digit'});
+  $('#paper').innerHTML = `<div class="hd"><b>مطعم وكافيه مراد</b><span>${when}</span></div>` +
+    L.map(({it, q}) => `<div class="ln"><span class="q">${MU.num(q)}×</span><span class="nm">${E(it.ar)}</span><span class="v">${it.p ? MU.num(it.p * q) : 'حسب الطلب'}</span></div>`).join('') +
+    `<div class="tot"><span>المجموع التقريبي</span><span>${MU.num(MU.tray.total(M))} د.ع</span></div>
+     <label class="tbl" for="tableNo">رقم الطاولة <input id="tableNo" inputmode="numeric" maxlength="3"></label>
+     <div class="note">هاي مش فاتورة رسمية. ورجيها للكابتن ليسجّل طلبك.</div>`;
+  const r = $('#room'); r.classList.remove('on'); void r.offsetWidth; r.classList.add('on');
+}
+$('#show').onclick = receipt;
+$('#back').onclick = () => $('#room').classList.remove('on');
+$('#clr').onclick = () => { MU.tray.clear(); $('#room').classList.remove('on'); render(); };
+addEventListener('keydown', e => e.key === 'Escape' && $('#room').classList.remove('on'));
+MU.load().then(m => { M = m; render(); });
+</script>
+</body>
+</html>
