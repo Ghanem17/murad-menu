@@ -59,7 +59,7 @@ python3 -m http.server 8000
 
 ## الروابط
 
-- المنيو: https://murad-menu.alighanem1899.workers.dev/
-- تصاميم الديمو: https://murad-menu.alighanem1899.workers.dev/demo/
+- المنيو: https://murad-menu.pages.dev/
+- تصاميم الديمو: https://murad-menu.pages.dev/demo/
 
-الموقع بيقرأ الملفات مباشرة من فرع `main` على GitHub (عبر Cloudflare Worker)، فأي تعديل بينرفع بيبيّن خلال دقيقة تقريباً.
+مشروع Cloudflare Pages اسمه `murad-menu`، فيه ملف `_worker.js` واحد بيقرأ الملفات مباشرة من فرع `main` على GitHub. يعني أي تعديل بينرفع على `main` بيبيّن عالرابط خلال كم دقيقة، بدون نشر جديد. لهيك لازم الريبو يضل عام.
