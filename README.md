@@ -55,3 +55,10 @@ python3 -m http.server 8000
 ```
 
 وبعدين افتح http://localhost:8000
+
+## الروابط
+
+- المنيو: https://murad-menu.alighanem1899.workers.dev/
+- تصاميم الديمو: https://murad-menu.alighanem1899.workers.dev/demo/
+
+الموقع بيقرأ الملفات مباشرة من فرع `main` على GitHub (عبر Cloudflare Worker)، فأي تعديل بينرفع بيبيّن خلال دقيقة تقريباً.
