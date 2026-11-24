@@ -42,7 +42,7 @@ body.menu-open #menu{display:block}
 [dir=ltr] .flip{transform:scaleX(-1)}
 
 /* sticky search + plate rail */
-.rail{position:sticky;top:0;z-index:5;background:linear-gradient(var(--cloth) 78%,transparent);padding:10px 0 14px}
+.rail{position:sticky;top:0;z-index:5;background:linear-gradient(var(--cloth) calc(100% - 10px),transparent);padding:10px 0 14px}
 .search{margin:0 18px 12px;display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:26px;padding-block:0;padding-inline:14px 8px;height:48px;transition:border-color .2s}
 .search:focus-within{border-color:var(--red)}
 .search svg{width:18px;height:18px;stroke:var(--mute);fill:none;stroke-width:2;stroke-linecap:round;flex:none}
@@ -125,3 +125,15 @@ section.sec{padding:0 14px;scroll-margin-top:170px}
 .open .serve .card{transform:none}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- "app icon" variant: rounded squares instead of circles (html.sq, enabled with ?shape=square) ---------- */
+.sq .dish .pl{border-radius:26%}
+.sq .dish .pl img,.sq .dish:active .pl img,.sq .dish:hover .pl img{transform:scale(1.12)}
+.sq .cat .disc,.sq .cat .disc::before{border-radius:28%}
+.sq .cat .disc img{border-radius:24%}
+.sq .cat.on .disc::before{animation:none;border-style:solid}
+.sq .big .plate{border-radius:24%}
+.sq .big .plate img{border-radius:0;animation:none;transform:scale(1.08)}
+/* detail opens like an app launching from its icon */
+.sq .photo{clip-path:inset(18% 31% round 28px);transform:translateY(40vh) scale(.6)}
+.sq .open .photo{clip-path:inset(0 round 22px);transform:none;transition:transform .55s cubic-bezier(.2,.9,.25,1),clip-path .55s .08s cubic-bezier(.2,.8,.2,1)}
