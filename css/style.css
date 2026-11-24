@@ -107,6 +107,9 @@ section.sec{padding:0 14px;scroll-margin-top:170px}
 .veil{position:fixed;inset:0;background:#05090fcc;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .35s;z-index:20}
 .serve{position:fixed;inset:auto 0 0;max-width:560px;margin:0 auto;z-index:21;max-height:94svh;overflow-y:auto;scrollbar-width:none;padding:0 10px calc(10px + env(safe-area-inset-bottom));pointer-events:none}
 .serve::-webkit-scrollbar{display:none}
+/* fully gone once the closing motion ends, whatever the screen size */
+.serve{visibility:hidden;transition:visibility 0s .55s}
+.open .serve{visibility:visible;transition:visibility 0s}
 .photo{position:relative;border-radius:22px;overflow:hidden;background:var(--cloth);box-shadow:0 30px 50px -20px #000;
   clip-path:circle(30% at 50% 50%);transform:translateY(55vh) rotate(-140deg) scale(.7);
   transition:transform .4s .1s cubic-bezier(.5,0,.75,0),clip-path .25s}
@@ -135,5 +138,5 @@ section.sec{padding:0 14px;scroll-margin-top:170px}
 .sq .big .plate{border-radius:24%}
 .sq .big .plate img{border-radius:0;animation:none;transform:scale(1.08)}
 /* detail opens like an app launching from its icon */
-.sq .photo{clip-path:inset(18% 31% round 28px);transform:translateY(40vh) scale(.6)}
+.sq .photo{clip-path:inset(18% 31% round 28px);transform:translateY(75vh) scale(.6)}
 .sq .open .photo{clip-path:inset(0 round 22px);transform:none;transition:transform .55s cubic-bezier(.2,.9,.25,1),clip-path .55s .08s cubic-bezier(.2,.8,.2,1)}
