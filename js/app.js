@@ -1,127 +1,100 @@
-// menu content lives in data/menu.json (loaded at the bottom of this file)
-let DATA = [], GROUPS = [], HALLS = [];
+// Murad menu: landing film + "Plates" menu. Content lives in data/menu.json.
+let DATA = [], GROUPS = [], BEST = [];
 let L = 'ar';
 try { L = localStorage.getItem('murad-lang') || 'ar'; } catch (e) {}
 const $ = s => document.querySelector(s);
-const esc = s => String(s || '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const fmt = p => p ? p.toLocaleString('en-US') + (L === 'ar' ? ' د.ع' : ' IQD') : (L === 'ar' ? 'حسب الطلب' : 'On request');
+const esc = s => String(s || '').replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+const num = p => Number(p).toLocaleString('en-US');
+const cur = () => L === 'ar' ? 'د.ع' : 'IQD';
+const price = p => p ? num(p) + ' ' + cur() : (L === 'ar' ? 'حسب الطلب' : 'On request');
 const nm = o => L === 'ar' ? o.ar : (o.en || o.ar), alt = o => L === 'ar' ? o.en : o.ar;
+const ds = o => L === 'ar' ? o.d : (o.de || o.d);
+const T = {best: ['الأكثر مبيعاً', 'Best Sellers'], sig: ['توقيع مراد', 'Signature'], ask: ['حسب<br>الطلب', 'On<br>request'], q: ['دوّر على طبق…', 'Search a dish…']};
+const t = k => T[k][L === 'ar' ? 0 : 1];
+// search ignores diacritics and common Arabic letter variants
+const norm = s => String(s || '').toLowerCase().replace(/[ً-ْـ]/g, '').replace(/[أإآ]/g, 'ا').replace(/[ىی]/g, 'ي').replace(/ة/g, 'ه').replace(/\s+/g, ' ');
 
+function seal(p) { return p ? `<span class="seal">${num(p)}<i>${cur()}</i></span>` : `<span class="seal ask">${t('ask')}</span>`; }
+function dish(it, s, si, ii) {
+  const q = norm([it.ar, it.en, s.ar, s.en].join(' '));
+  return `<button class="dish${it.i ? '' : ' nophoto'}" data-k="${si}|${ii}" data-q="${esc(q)}">${it.i ? `<span class="pl"><img src="${it.i}" alt="" loading="lazy"></span>` : ''}${seal(it.p)}${it.s && !s.compact ? `<span class="sig">${t('sig')}</span>` : ''}<b>${esc(nm(it))}</b><small>${esc(alt(it))}</small></button>`;
+}
+function render() {
+  BEST = DATA.flatMap((s, si) => s.items.map((it, ii) => [s, si, it, ii]).filter(x => x[2].best));
+  $('#rail').innerHTML = (BEST.length ? `<button class="cat" data-t="best"><span class="disc"><img src="${BEST[0][2].i}" alt=""></span><span>${t('best')}</span></button>` : '') +
+    DATA.map((s, si) => `<button class="cat" data-t="s${si}"><span class="disc"><img src="${s.c}" alt="" loading="lazy"></span><span>${esc(nm(s))}</span></button>`).join('');
+  let h = BEST.length ? `<div class="best" id="best"><div class="sec-h"><div><h3>${t('best')}</h3><em>${L === 'ar' ? 'Best Sellers' : 'الأكثر مبيعاً'}</em></div></div><div class="carousel">` +
+    BEST.map(([s, si, it, ii]) => `<button class="big" data-k="${si}|${ii}"><span class="plate"><img src="${it.i}" alt="" loading="lazy"></span><b>${esc(nm(it))}</b><small>${price(it.p)}</small></button>`).join('') + '</div></div>' : '';
+  let g = '';
+  DATA.forEach((s, si) => {
+    if (s.g !== g) { g = s.g; const G = GROUPS.find(x => x.k === g); h += `<div class="group">${esc(G ? nm(G) : g)}</div>`; }
+    h += `<section class="sec" id="s${si}"><div class="sec-h"><div><h3>${esc(nm(s))}</h3><em>${esc(alt(s))}</em></div></div>
+      <div class="grid${s.compact ? ' small' : ''}">${s.items.map((it, ii) => dish(it, s, si, ii)).join('')}</div></section>`;
+  });
+  $('#list').innerHTML = h;
+  document.querySelectorAll('#list [data-k]').forEach(b => b.onclick = () => serve(b.dataset.k));
+  document.querySelectorAll('.cat').forEach(c => c.onclick = () => { const el = document.getElementById(c.dataset.t); if (el) scrollTo({top: el.offsetTop - 165, behavior: 'smooth'}); });
+  spy(); search();
+}
+let obs;
+function spy() {
+  if (obs) obs.disconnect();
+  obs = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return;
+    document.querySelectorAll('.cat').forEach(c => c.classList.toggle('on', c.dataset.t === e.target.id));
+    const on = $('.cat.on'); if (on) on.scrollIntoView({inline: 'center', block: 'nearest', behavior: 'smooth'});
+  }), {rootMargin: '-180px 0px -65% 0px'});
+  document.querySelectorAll('#best,section.sec').forEach(s => obs.observe(s));
+}
+function search() {
+  const q = norm($('#q').value.trim()); let n = 0;
+  $('#qx').hidden = !q;
+  const best = $('#best'), bc = $('.cat[data-t="best"]'); if (best) best.hidden = !!q; if (bc) bc.hidden = !!q;
+  document.querySelectorAll('section.sec').forEach(sec => {
+    let c = 0; sec.querySelectorAll('.dish').forEach(d => { const ok = !q || d.dataset.q.includes(q); d.hidden = !ok; if (ok) c++; });
+    sec.hidden = !c; n += c; const cat = $(`.cat[data-t="${sec.id}"]`); if (cat) cat.hidden = !c;
+  });
+  document.querySelectorAll('.group').forEach(g => { let el = g.nextElementSibling, any = false;
+    while (el && !el.classList.contains('group')) { if (el.matches('section.sec') && !el.hidden) any = true; el = el.nextElementSibling; } g.hidden = !any; });
+  $('#empty').hidden = !DATA.length || n > 0;
+}
+function serve(k) {
+  const [si, ii] = k.split('|').map(Number), s = DATA[si], it = s.items[ii], d = ds(it);
+  const x = '<button class="x" id="x" aria-label="close">×</button>';
+  $('#serve').innerHTML = `${it.i ? `<div class="photo">${x}<img src="${it.i}" alt="${esc(nm(it))}"></div>` : ''}<div class="card${it.i ? '' : ' solo'}">${it.i ? '' : x}
+    <h4>${esc(nm(it))}</h4><div class="alt">${esc(alt(it))}</div>${d ? `<p class="ds">${esc(d)}</p>` : ''}
+    <div class="row"><span class="pr">${it.p ? num(it.p) + `<i>${cur()}</i>` : price(0)}</span></div></div>`;
+  $('#serve').scrollTop = 0;
+  requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.add('open')));
+  $('#x').onclick = closeServe;
+}
+function closeServe() { document.body.classList.remove('open'); }
 function setLang(l) {
   L = l; try { localStorage.setItem('murad-lang', l); } catch (e) {}
   document.documentElement.lang = l; document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
   document.querySelectorAll('[data-ar]').forEach(el => el.innerHTML = el.dataset[l]);
   document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('on', b.dataset.l === l));
   $('#lbtn').textContent = l === 'ar' ? 'EN' : 'ع';
-  $('#q').placeholder = l === 'ar' ? 'دوّر على طبق…' : 'Search a dish…';
-  render(); halls();
+  $('#q').placeholder = t('q');
+  if (DATA.length) render();
 }
-function tiles() {
-  $('#tiles').innerHTML = GROUPS.map((g, i) => {
-    const pick = g.tile;
-    const sec = DATA.find(s => s.ar === pick) || DATA.find(s => s.g === g.k); const img = sec && sec.c;
-    return `<button class="tile" data-g="${g.k}"><img src="${img || ''}" alt="" loading="lazy"><span>${esc(L === 'ar' ? g.ar : g.en)}<small>${esc(L === 'ar' ? g.sa : g.se)}</small></span></button>`;
-  }).join('');
-  document.querySelectorAll('.tile').forEach(t => t.onclick = () => openMenu('g-' + t.dataset.g));
-}
-function itemHTML(s, si, it, ii) {
-  const d = L === 'ar' ? it.d : (it.de || it.d);
-  return `<button class="item${it.s ? ' sig' : ''}" data-k="${si}|${ii}">${it.i ? `<img src="${it.i}" alt="" loading="lazy">` : ''}<div class="t"><div class="nm">${esc(nm(it))}</div><div class="alt">${esc(alt(it))}</div>${!s.compact && d ? `<div class="ds">${esc(d)}</div>` : ''}<div class="row2"><span class="price${it.p ? '' : ' ask'}">${fmt(it.p)}</span>${it.s ? `<span class="badge">${L === 'ar' ? 'توقيع مراد' : 'Signature'}</span>` : ''}</div></div></button>`;
-}
-function render() {
-  tiles();
-  const q = ($('#q').value || '').trim().toLowerCase();
-  let html = '', chips = '', shown = 0, lastG = '';
-  // best sellers: items flagged "best": true, shown first (hidden while searching to avoid duplicates)
-  const best = q ? [] : DATA.flatMap((s, si) => s.items.map((it, ii) => [s, si, it, ii]).filter(x => x[2].best));
-  if (best.length) {
-    chips += `<button class="chip" data-s="best">${L === 'ar' ? 'الأكثر مبيعاً' : 'Best Sellers'}</button>`;
-    html += `<section id="best"><div class="sec-h"><h2>${L === 'ar' ? 'الأكثر مبيعاً' : 'Best Sellers'}</h2><small>${L === 'ar' ? 'Best Sellers' : 'الأكثر مبيعاً'}</small></div>` +
-      best.map(([s, si, it, ii]) => itemHTML(s, si, it, ii)).join('') + '</section>';
-  }
-  DATA.forEach((s, si) => {
-    const its = s.items.filter(it => !q || (it.ar + ' ' + it.en).toLowerCase().includes(q));
-    if (!its.length) return;
-    shown += its.length;
-    if (s.g !== lastG) { const g = GROUPS.find(x => x.k === s.g); html += `<div class="group-h" id="g-${s.g}">${esc(L === 'ar' ? g.ar : g.en.toUpperCase())}</div>`; lastG = s.g; }
-    chips += `<button class="chip" data-s="s${si}">${esc(nm(s))}</button>`;
-    html += `<section id="s${si}" class="${s.compact ? 'compact' : ''}"><div class="sec-h"><h2>${esc(nm(s))}</h2><small>${esc(alt(s))}</small></div>` +
-      its.map(it => itemHTML(s, si, it, s.items.indexOf(it))).join('') + '</section>';
-  });
-  $('#list').innerHTML = html; $('#chips').innerHTML = chips; $('#empty').style.display = shown ? 'none' : 'block';
-  document.querySelectorAll('.chip').forEach(c => c.onclick = () => { const el = document.getElementById(c.dataset.s); window.scrollTo({top: el.offsetTop - 112, behavior: 'smooth'}); });
-  document.querySelectorAll('.item').forEach(b => b.onclick = () => sheet(b.dataset.k));
-  spy();
-}
-let obs;
-function spy() {
-  if (obs) obs.disconnect();
-  obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) {
-    document.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c.dataset.s === e.target.id));
-    const on = document.querySelector('.chip.on'); if (on) on.scrollIntoView({inline: 'center', block: 'nearest', behavior: 'smooth'});
-  }}), {rootMargin: '-130px 0px -65% 0px'});
-  document.querySelectorAll('section').forEach(s => obs.observe(s));
-}
-function sheet(k) {
-  const [si, ii] = k.split('|').map(Number); const s = DATA[si], it = s.items[ii];
-  const d = L === 'ar' ? it.d : (it.de || it.d);
-  $('#sheet').innerHTML = `<div class="grab"></div><button class="close" id="x" aria-label="close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>${it.i ? `<img class="ph" src="${it.i}" alt="">` : '<div style="height:40px"></div>'}<div class="bd"><div class="nm">${esc(nm(it))}</div><div class="alt">${esc(alt(it))} · ${esc(nm(s))}</div>${d ? `<div class="ds">${esc(d)}</div>` : ''}<div class="row2"><span class="price${it.p ? '' : ' ask'}">${fmt(it.p)}</span>${it.s ? `<span class="badge">${L === 'ar' ? 'توقيع مراد' : 'Signature'}</span>` : ''}</div></div>`;
-  document.body.classList.add('open'); $('#x').onclick = closeSheet;
-}
-function closeSheet() { document.body.classList.remove('open'); }
-function openMenu(target) {
+// landing <-> menu
+const film = $('#film');
+function openMenu() {
   document.body.classList.add('menu-open'); history.pushState({m: 1}, '');
-  requestAnimationFrame(() => { const el = target && document.getElementById(target); window.scrollTo({top: el ? el.offsetTop - 112 : 0}); });
+  if (film) film.pause(); scrollTo(0, 0);
 }
-$('#veil').onclick = closeSheet;
-$('#all').onclick = () => openMenu();
+window.onpopstate = () => { closeServe(); document.body.classList.remove('menu-open'); if (film) film.play().catch(() => {}); };
+if (film && matchMedia('(prefers-reduced-motion: reduce)').matches) { film.removeAttribute('autoplay'); film.pause(); }
+$('#all').onclick = openMenu;
 $('#back').onclick = () => history.back();
-window.onpopstate = () => { closeSheet(); document.body.classList.remove('menu-open'); const f = document.querySelector('.finale'); window.scrollTo(0, f ? f.offsetTop : 0); };
+$('#veil').onclick = closeServe;
+addEventListener('keydown', e => e.key === 'Escape' && closeServe());
 document.querySelectorAll('.lang button').forEach(b => b.onclick = () => setLang(b.dataset.l));
 $('#lbtn').onclick = () => setLang(L === 'ar' ? 'en' : 'ar');
-$('#sbtn').onclick = () => { $('#search').classList.toggle('on'); if ($('#search').classList.contains('on')) $('#q').focus(); else { $('#q').value = ''; render(); } };
-$('#q').oninput = () => { render(); window.scrollTo({top: 0}); };
-window.addEventListener('scroll', () => $('#totop').classList.toggle('on', document.body.classList.contains('menu-open') && scrollY > 900), {passive: true});
-$('#totop').onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
-/* ---------- cinematic landing ---------- */
-function halls() {
-  $('#rail').innerHTML = HALLS.map((h, i) => `<div class="hall${i ? '' : ' on'}" data-i="${i}"><video data-src="v/${h.v}.mp4" poster="v/${h.v}.jpg" muted playsinline loop preload="none"></video><span class="no">0${i + 1}</span><div class="cap"><b>${esc(L === 'ar' ? h.ar : h.en)}</b><small>${esc(L === 'ar' ? h.da : h.de)}</small></div></div>`).join('');
-  $('#raildots').innerHTML = HALLS.map((_, i) => `<i class="${i ? '' : 'on'}"></i>`).join('');
-  const ro = new IntersectionObserver(es => es.forEach(e => {
-    const v = e.target.querySelector('video'); e.target.classList.toggle('on', e.isIntersecting);
-    if (e.isIntersecting) { if (!v.src) v.src = v.dataset.src; v.play().catch(() => {});
-      document.querySelectorAll('#raildots i').forEach((d, k) => d.classList.toggle('on', k == e.target.dataset.i)); }
-    else v.pause();
-  }), {root: $('#rail'), threshold: .6});
-  document.querySelectorAll('.hall').forEach(h => ro.observe(h));
-}
-function openGate() {
-  const g = $('#gate'); if (g.classList.contains('open')) return;
-  g.classList.add('open');
-  setTimeout(() => { const nx = g.nextElementSibling; if (nx && scrollY < 40) window.scrollTo({top: nx.offsetTop, behavior: 'smooth'}); }, 1700);
-}
-$('#enter').onclick = openGate;
-document.querySelectorAll('.door').forEach(d => d.onclick = openGate);
-$('#skip').onclick = () => openMenu();
-const sceneObs = new IntersectionObserver(es => es.forEach(e => {
-  const s = e.target, v = s.querySelector(':scope > video.bg');
-  if (e.isIntersecting) {
-    s.classList.add('in');
-    if (v) { if (!v.src && v.dataset.src) v.src = v.dataset.src; v.play().catch(() => {}); }
-    const st = s.dataset.step; $('#steps').classList.toggle('on', st !== undefined);
-    if (st !== undefined) document.querySelectorAll('#steps i').forEach((d, k) => d.classList.toggle('on', k == st));
-    if (s.id !== 'gate') openGate();
-  } else if (v && s.id !== 'gate') v.pause();
-}), {threshold: .55});
-document.querySelectorAll('#home .scene').forEach(s => sceneObs.observe(s));
-// deep link: #s3 opens the door and jumps to scene 3 (also handy for sharing a hall)
-if (/^#s\d+$/.test(location.hash)) { const n = +location.hash.slice(2), sc = document.querySelectorAll('#home .scene')[n];
-  $('#gate').classList.add('open'); if (sc) requestAnimationFrame(() => window.scrollTo(0, sc.offsetTop)); }
-// preload the next scene's video while the door is closed
-setTimeout(() => { const v = document.querySelector('[data-step="0"] video'); if (v && !v.src) { v.src = v.dataset.src; v.load(); } }, 1200);
-
+$('#q').addEventListener('input', () => { search(); const top = $('.hero').offsetHeight; if (scrollY > top) scrollTo({top}); });
+$('#qx').onclick = () => { $('#q').value = ''; search(); $('#q').focus(); };
 setLang(L);
 fetch('data/menu.json', {cache: 'no-cache'})
   .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-  .then(m => { DATA = m.sections; GROUPS = m.groups; HALLS = m.halls; render(); halls(); })
-  .catch(e => { console.error('menu.json failed to load', e); $('#empty').style.display = 'block'; });
+  .then(m => { DATA = m.sections; GROUPS = m.groups; render(); })
+  .catch(e => { console.error('menu.json failed to load', e); $('#empty').hidden = false; });
