@@ -29,6 +29,11 @@
   .santa .bob{animation:bob .38s ease-in-out infinite alternate}
   .santa .wave{transform-box:fill-box;transform-origin:0 100%;animation:wave .5s ease-in-out infinite alternate}
   .santa .glow{animation:glow .7s ease-in-out infinite alternate}
+  .santa.pic{width:min(540px,125vw)}
+  .santa.pic .arc{position:relative;display:flex;justify-content:flex-end;animation:santa-arc 7s ease-in-out forwards}
+  .santa.pic svg{animation:none;position:absolute;left:0;width:36%;top:calc(var(--rope) * 100%);transform:translateY(-50%)}
+  .santa.pic img{display:block;width:var(--w);height:auto;position:relative;filter:drop-shadow(0 10px 14px #0007);animation:gallop .42s ease-in-out infinite alternate}
+  @keyframes gallop{from{transform:translateY(-3px) rotate(-1deg)}to{transform:translateY(3px) rotate(1deg)}}
   @keyframes bob{from{transform:translateY(-2px)}to{transform:translateY(2px)}}
   @keyframes wave{from{transform:rotate(-18deg)}to{transform:rotate(14deg)}}
   @keyframes glow{from{opacity:.35}to{opacity:.9}}
@@ -115,7 +120,31 @@
       <path d="M40 80 L36 92 M96 80 L100 92" stroke="#F5C451" stroke-width="3"/>
       <path d="M8 92 L116 92 Q132 92 133 78 Q133 70 126 71" stroke="#F5C451" stroke-width="4" fill="none" stroke-linecap="round"/>
     </g>`;
+  // picture options: rope = height (0..1) where the banner rope meets the back of the sleigh,
+  // w = picture width within the flying row, cw = width of the whole row (banner + picture)
+  const PICS = {
+    sleigh: {src: 'img/xmas/santa.webp', rope: .5, w: '70%', cw: 'min(700px,160vw)'},      // Santa from one drawing, reindeer from another
+    ours: {src: 'img/xmas/santa-ours.webp', rope: .55, w: '52%', cw: 'min(560px,125vw)'},   // the restaurant's own picture
+  };
+  const DEFAULT_SANTA = 'sleigh';   // ?santa=ours or ?santa=draw to compare
+  const pick = new URLSearchParams(location.search).get('santa') || DEFAULT_SANTA;
+  if (PICS[pick]) new Image().src = PICS[pick].src;   // preload so it is ready when the menu opens
+  const banner = (x2) => `<path d="M-40 60 Q${(x2 - 40) / 2} 72 ${x2} 62" stroke="#5A3A1E" stroke-width="1.8" fill="none"/>
+      <g class="banner">
+        <rect x="-210" y="42" width="172" height="36" rx="6" fill="#C8102E" stroke="#F5C451" stroke-width="2.5"/>
+        <circle cx="-210" cy="60" r="5" fill="#F5C451"/><circle cx="-38" cy="60" r="5" fill="#F5C451"/>
+        <text x="-124" y="67.5" text-anchor="middle" font-size="22" fill="#fff" textLength="148" lengthAdjust="spacingAndGlyphs">Merry Christmas</text>
+      </g>`;
+  function flyPicture(o) {
+    const s = document.createElement('div');
+    s.className = 'santa pic'; s.setAttribute('aria-hidden', 'true');
+    s.style.setProperty('--rope', o.rope); s.style.setProperty('--w', o.w); if (o.cw) s.style.width = o.cw;
+    s.innerHTML = `<div class="arc"><svg viewBox="-214 30 270 60">${banner(60)}</svg><img src="${o.src}" alt=""></div>`;
+    document.body.appendChild(s);
+    s.addEventListener('animationend', e => { if (e.animationName === 'santa-fly') s.remove(); });
+  }
   function flySanta() {
+    if (PICS[pick]) return flyPicture(PICS[pick]);
     const s = document.createElement('div');
     s.className = 'santa'; s.setAttribute('aria-hidden', 'true');
     s.innerHTML = `<svg viewBox="-214 -56 566 152">
