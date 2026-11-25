@@ -102,6 +102,8 @@ section.sec{padding:0 14px;scroll-margin-top:170px}
 .grid.small .seal i{font-size:7.5px}
 .grid.small b{font-size:12.5px}
 .grid.small small{display:none}
+/* a small dish without a photo: the seal sits above the card instead of over the name */
+.grid.small .dish.nophoto{padding-top:24px}.grid.small .dish.nophoto .seal{top:-12px}
 .empty{text-align:center;color:var(--mute);padding:50px 30px;font-size:15px;line-height:1.8}
 .foot{text-align:center;color:var(--mute);font-size:12px;line-height:1.8;padding:36px 20px calc(40px + env(safe-area-inset-bottom))}
 
