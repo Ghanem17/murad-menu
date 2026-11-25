@@ -33,6 +33,9 @@
   .santa.pic .arc{position:relative;display:flex;justify-content:flex-end;animation:santa-arc 7s ease-in-out forwards}
   .santa.pic svg{animation:none;position:absolute;left:0;width:36%;top:calc(var(--rope) * 100%);transform:translateY(-50%)}
   .santa.pic img{display:block;width:var(--w);height:auto;position:relative;filter:drop-shadow(0 10px 14px #0007);animation:gallop .42s ease-in-out infinite alternate}
+  .santa.pic .run{width:var(--w);aspect-ratio:var(--ar);position:relative;background-repeat:no-repeat;background-position:0 0;
+    filter:drop-shadow(0 10px 14px #0007);animation:run .5s steps(8,jump-none) infinite,gallop .42s ease-in-out infinite alternate}
+  @keyframes run{to{background-position:100% 0}}
   @keyframes gallop{from{transform:translateY(-3px) rotate(-1deg)}to{transform:translateY(3px) rotate(1deg)}}
   @keyframes bob{from{transform:translateY(-2px)}to{transform:translateY(2px)}}
   @keyframes wave{from{transform:rotate(-18deg)}to{transform:rotate(14deg)}}
@@ -123,7 +126,8 @@
   // picture options: rope = height (0..1) where the banner rope meets the back of the sleigh,
   // w = picture width within the flying row, cw = width of the whole row (banner + picture)
   const PICS = {
-    sleigh: {src: 'img/xmas/santa.webp', rope: .5, w: '70%', cw: 'min(700px,160vw)'},      // Santa from one drawing, reindeer from another
+    // Santa from one drawing, reindeer from another; 8 frames side by side so the reindeer legs gallop
+    sleigh: {src: 'img/xmas/santa-run.webp', frames: 8, ar: '900/316', rope: .5, w: '70%', cw: 'min(700px,160vw)'},
     ours: {src: 'img/xmas/santa-ours.webp', rope: .55, w: '52%', cw: 'min(560px,125vw)'},   // the restaurant's own picture
   };
   const DEFAULT_SANTA = 'sleigh';   // ?santa=ours or ?santa=draw to compare
@@ -139,7 +143,10 @@
     const s = document.createElement('div');
     s.className = 'santa pic'; s.setAttribute('aria-hidden', 'true');
     s.style.setProperty('--rope', o.rope); s.style.setProperty('--w', o.w); if (o.cw) s.style.width = o.cw;
-    s.innerHTML = `<div class="arc"><svg viewBox="-214 30 270 60">${banner(60)}</svg><img src="${o.src}" alt=""></div>`;
+    const pic = o.frames
+      ? `<div class="run" style="--ar:${o.ar};background-image:url(${o.src});background-size:${o.frames * 100}% 100%"></div>`
+      : `<img src="${o.src}" alt="">`;
+    s.innerHTML = `<div class="arc"><svg viewBox="-214 30 270 60">${banner(60)}</svg>${pic}</div>`;
     document.body.appendChild(s);
     s.addEventListener('animationend', e => { if (e.animationName === 'santa-fly') s.remove(); });
   }
