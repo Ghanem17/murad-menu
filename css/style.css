@@ -91,6 +91,8 @@ section.sec{padding:0 14px;scroll-margin-top:170px}
 .seal i{display:block;font-style:normal;font-size:8.5px;font-weight:400;opacity:.85}
 .seal.ask{font-size:9px}
 .sig{order:9;margin-top:6px;font-size:9.5px;color:#fff;background:var(--red2);border-radius:20px;padding:1px 9px}
+.note{display:block;margin-top:4px;font-size:10.5px;line-height:1.4;color:#ff8a90}
+.serve .note{font-size:13px;margin-top:8px}
 .dish.nophoto{padding-top:22px}.dish.nophoto .seal{top:-14px}
 /* compact sections (drinks, shisha): small saucers */
 .grid.small{grid-template-columns:repeat(3,1fr);gap:46px 10px;padding-top:44px}

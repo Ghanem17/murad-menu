@@ -31,7 +31,6 @@
     {"ar": "مقبلات ساخنة", "en": "Hot Appetizers", "g": "kitchen", "c": "img/cat-8912.webp", "items": [
       {"ar": "سلة مراد", "en": "Murad Basket", "d": "نقدم لكم من الذ مانصنع في مطبخنا (أصابع موزوريلا / بورك جبن / حلقات بصل / بطاطا كيرلي / كرات الدجاج و كارلك برد الشهي)", "de": "Mozzarella sticks, cheese borek, onion rings, curly fries, chicken balls & garlic bread.", "p": 16000, "i": "img/m78111.webp", "s": true},
       {"ar": "حمص باللحمة", "en": "Hummus with Meat", "d": "", "de": "", "p": 12000, "i": "img/m78112.webp", "s": false},
-      {"ar": "كرات دجاج ارنشي", "en": "Arancini Chicken Balls", "d": "محشية جبنة موزوريلا و مغمسه بطبقة البانيه المقرمشة و تقدم مع الصوص الإيطالي", "de": "Stuffed with mozzarella, coated in crispy crumbs, served with Italian sauce.", "p": 8000, "i": "img/m78113.webp", "s": false},
       {"ar": "كبدة دجاج (بدبس الرمان)", "en": "Chicken Liver with Pomegranate Molasses", "d": "", "de": "", "p": 10000, "i": "img/m78114.webp", "s": false},
       {"ar": "رول مسخن اردني", "en": "Jordanian Musakhan Roll", "d": "", "de": "", "p": 10000, "i": "img/m78115.webp", "s": false},
       {"ar": "روبيان داينامايت", "en": "Dynamite Shrimp", "d": "مخطس بالبانيه ومشبع بالصوص الخاص", "de": "Crispy battered shrimp tossed in our special sauce.", "p": 15000, "i": "img/m78116.webp", "s": false},
@@ -41,7 +40,6 @@
       {"ar": "بطاطا ودجز", "en": "Potato Wedges", "d": "", "de": "", "p": 8000, "i": "img/m78120.webp", "s": false},
       {"ar": "بطاطا مقلية", "en": "French Fries", "d": "", "de": "", "p": 5000, "i": "img/m78121.webp", "s": false},
       {"ar": "بطاطا مقلية بالجبن", "en": "Cheese Fries", "d": "", "de": "", "p": 5000, "i": "img/m78122.webp", "s": false},
-      {"ar": "اصابع موزوريلا", "en": "Mozzarella Sticks", "d": "", "de": "", "p": 12000, "i": "img/m78123.webp", "s": false},
       {"ar": "برك لحم", "en": "Meat Borek", "d": "", "de": "", "p": 10000, "i": "img/m78124.webp", "s": false},
       {"ar": "برك بالجبن", "en": "Cheese Borek", "d": "", "de": "", "p": 7000, "i": "img/m78125.webp", "s": false}
     ]},
@@ -56,40 +54,36 @@
     {"ar": "السلطات الغربية", "en": "Western Salad", "g": "kitchen", "c": "img/cat-8914.webp", "items": [
       {"ar": "سلطة مراد", "en": "Murad Salad", "d": "خس / طماطة كرزيه / اناناس / فطر / دجاج / صوص مراد", "de": "Lettuce, cherry tomatoes, pineapple, mushrooms, chicken & Murad sauce.", "p": 16000, "i": "img/m78132.webp", "s": true},
       {"ar": "سلطة قيصر (سيزر)", "en": "Caesar Salad", "d": "", "de": "", "p": 12000, "i": "img/m78133.webp", "s": false},
-      {"ar": "سلطة الكينوا", "en": "Quinoa Salad", "d": "", "de": "", "p": 16000, "i": "img/m78134.webp", "s": false},
-      {"ar": "سلطة الكراب", "en": "Crab Salad", "d": "تقدم بخليط من مشكل لولو حزر / ملفوف احمر / مانكو / سمك الكارب", "de": "Iceberg lettuce, red cabbage, mango & crab sticks.", "p": 16000, "i": "img/m78135.webp", "s": false}
+      {"ar": "سلطة الكينوا", "en": "Quinoa Salad", "d": "", "de": "", "p": 12000, "i": "img/m78134.webp", "s": false}
     ]},
     {"ar": "الأطباق الشرقية", "en": "Eastern Dishes", "g": "kitchen", "c": "img/cat-8915.webp", "items": [
       {"ar": "ضلع مطعم مراد", "en": "Murad Signature Rib", "d": "", "de": "", "p": 45000, "i": "img/m78136.webp", "s": true, "best": true},
-      {"ar": "كباب هندي", "en": "Indian Kebab", "d": "", "de": "", "p": 30000, "i": "img/m78137.webp", "s": false},
       {"ar": "قوزي لحم", "en": "Lamb Quzi", "d": "", "de": "", "p": 26000, "i": "img/m78138.webp", "s": false},
-      {"ar": "قوزي دجاج", "en": "Chicken Quzi", "d": "", "de": "", "p": 24000, "i": "img/m78139.webp", "s": false},
+      {"ar": "قوزي دجاج", "en": "Chicken Quzi", "d": "", "de": "", "p": 22000, "i": "img/m78139.webp", "s": false},
       {"ar": "دليمية", "en": "Dulaimiya", "d": "", "de": "", "p": 30000, "i": "img/m78140.webp", "s": false},
-      {"ar": "دولمة", "en": "Dolma", "d": "", "de": "", "p": 30000, "i": "img/m78141.webp", "s": false},
-      {"ar": "برياني لحم", "en": "Lamb Biryani", "d": "", "de": "", "p": 30000, "i": "img/m78142.webp", "s": false},
-      {"ar": "برياني دجاج", "en": "Chicken Biryani", "d": "", "de": "", "p": 26000, "i": "img/m78143.webp", "s": false},
-      {"ar": "تشريب لحم احمر", "en": "Red Meat Tashreeb", "d": "", "de": "", "p": 30000, "i": "img/m78144.webp", "s": false},
-      {"ar": "مقلوبة لحم", "en": "Lamb Maqluba", "d": "", "de": "", "p": 30000, "i": "img/m78145.webp", "s": false},
+      {"ar": "دولمة", "en": "Dolma", "d": "", "de": "", "p": 30000, "i": "img/m78141.webp", "s": false, "n": "فقط يوم الجمعة أو عند الطلب", "ne": "Fridays only, or on request"},
+      {"ar": "برياني لحم", "en": "Lamb Biryani", "d": "", "de": "", "p": 26000, "i": "img/m78142.webp", "s": false},
+      {"ar": "برياني دجاج", "en": "Chicken Biryani", "d": "", "de": "", "p": 22000, "i": "img/m78143.webp", "s": false},
+      {"ar": "تشريب لحم احمر", "en": "Red Meat Tashreeb", "d": "", "de": "", "p": 26000, "i": "img/m78144.webp", "s": false},
+      {"ar": "مقلوبة لحم", "en": "Lamb Maqluba", "d": "", "de": "", "p": 26000, "i": "img/m78145.webp", "s": false},
       {"ar": "برياني روبيان", "en": "Shrimp Biryani", "d": "", "de": "", "p": 30000, "i": "img/m78146.webp", "s": false},
-      {"ar": "مقلوبة دجاج", "en": "Chicken Maqluba", "d": "", "de": "", "p": 26000, "i": "img/m78147.webp", "s": false},
-      {"ar": "كبسة لحم", "en": "Lamb Kabsa", "d": "", "de": "", "p": 30000, "i": "img/m78148.webp", "s": false},
-      {"ar": "كبسة دجاج", "en": "Chicken Kabsa", "d": "", "de": "", "p": 26000, "i": "img/m78149.webp", "s": false},
-      {"ar": "المنسف الأردني", "en": "Jordanian Mansaf", "d": "", "de": "", "p": 30000, "i": "img/m78150.webp", "s": false},
+      {"ar": "مقلوبة دجاج", "en": "Chicken Maqluba", "d": "", "de": "", "p": 22000, "i": "img/m78147.webp", "s": false},
+      {"ar": "كبسة لحم", "en": "Lamb Kabsa", "d": "", "de": "", "p": 26000, "i": "img/m78148.webp", "s": false},
+      {"ar": "كبسة دجاج", "en": "Chicken Kabsa", "d": "", "de": "", "p": 22000, "i": "img/m78149.webp", "s": false},
+      {"ar": "المنسف الأردني", "en": "Jordanian Mansaf", "d": "", "de": "", "p": 28000, "i": "img/m78150.webp", "s": false},
       {"ar": "سمك زبيدي عالتمن", "en": "Zubaidi Fish with Rice", "d": "", "de": "", "p": 35000, "i": "img/m78151.webp", "s": false}
     ]},
     {"ar": "مشويات", "en": "Grills", "g": "kitchen", "c": "img/cat-8916.webp", "items": [
-      {"ar": "صاج كباب لحم", "en": "Meat Kebab Saj", "d": "", "de": "", "p": 25000, "i": "img/m78152.webp", "s": false},
       {"ar": "مشاوي مشكل لحم", "en": "Mixed Meat Grill", "d": "", "de": "", "p": 30000, "i": "img/m78153.webp", "s": false},
       {"ar": "مشاوي مشكل دجاج + لحم", "en": "Mixed Grill (Chicken & Meat)", "d": "", "de": "", "p": 28000, "i": "img/m78154.webp", "s": false},
-      {"ar": "كباب لحم", "en": "Meat Kebab", "d": "", "de": "", "p": 30000, "i": "img/m78155.webp", "s": false, "best": true},
+      {"ar": "كباب لحم", "en": "Meat Kebab", "d": "", "de": "", "p": 28000, "i": "img/m78155.webp", "s": false, "best": true},
       {"ar": "نص نفر لحم", "en": "Half Portion Meat Grill", "d": "", "de": "", "p": 16000, "i": "img/m78156.webp", "s": false},
       {"ar": "كباب اورفلي", "en": "Urfa Kebab", "d": "", "de": "", "p": 30000, "i": "img/m78157.webp", "s": false},
       {"ar": "كباب باذنجان", "en": "Eggplant Kebab", "d": "", "de": "", "p": 30000, "i": "img/m78158.webp", "s": false},
-      {"ar": "تكه لحم", "en": "Meat Tikka", "d": "", "de": "", "p": 30000, "i": "img/m78159.webp", "s": false},
+      {"ar": "تكه لحم", "en": "Meat Tikka", "d": "", "de": "", "p": 28000, "i": "img/m78159.webp", "s": false},
       {"ar": "تكه دجاج", "en": "Chicken Tikka", "d": "", "de": "", "p": 24000, "i": "img/m78160.webp", "s": false},
       {"ar": "عرايس لحم", "en": "Meat Arayes", "d": "", "de": "", "p": 22000, "i": "img/m78161.webp", "s": false},
       {"ar": "عرايس دجاج", "en": "Chicken Arayes", "d": "", "de": "", "p": 20000, "i": "img/m78162.webp", "s": false},
-      {"ar": "اجنحه", "en": "Chicken Wings", "d": "", "de": "", "p": 17000, "i": "img/m78163.webp", "s": false},
       {"ar": "دجاج مسحب عالفحم", "en": "Charcoal Pulled Chicken", "d": "", "de": "", "p": 24000, "i": "img/m78164.webp", "s": false}
     ]},
     {"ar": "الإضافات", "en": "Extra", "g": "kitchen", "c": "img/cat-8917.webp", "compact": true, "items": [
@@ -111,7 +105,7 @@
     ]},
     {"ar": "أطباق الدجاج الغربي", "en": "Western Chicken Dishes", "g": "kitchen", "c": "img/cat-8919.webp", "items": [
       {"ar": "كوردن بلو دجاج", "en": "Chicken Cordon Bleu", "d": "دجاج محشي بجبنة الموزوريلا وجبنة الفونك و الفطر مع صوص الباشاميل وخضار السوتيه و الكول سلو", "de": "Chicken stuffed with mozzarella, cheese & mushroom, béchamel sauce, sautéed vegetables & coleslaw.", "p": 24000, "i": "img/m78178.webp", "s": false},
-      {"ar": "فيليه سمك بصوص المونير", "en": "Fish Fillet Meunière", "d": "", "de": "", "p": 30000, "i": "img/m78179.webp", "s": false},
+      {"ar": "فيليه سمك بصوص المونير", "en": "Fish Fillet Meunière", "d": "", "de": "", "p": 26000, "i": "img/m78179.webp", "s": false},
       {"ar": "شرحات دجاج بالفطر", "en": "Mushroom Chicken Strips", "d": "وايت صوص مع الفطر والموزوريلا يقدم مع خضار سوتيه و البطاطا البورليه", "de": "White sauce with mushrooms & mozzarella, served with sautéed vegetables and potatoes.", "p": 20000, "i": "img/m78180.webp", "s": false},
       {"ar": "شرحات دجاج مطفاي بالحامض و الثوم", "en": "Chicken Strips with Lemon & Garlic", "d": "", "de": "", "p": 20000, "i": "img/m78181.webp", "s": false},
       {"ar": "سكالوب ميلانيز", "en": "Chicken Milanese", "d": "صوص نابوليتانا و موزوريلا و جبن بارمزان وسلطة كول سلو", "de": "Napolitana sauce, mozzarella, parmesan and coleslaw.", "p": 20000, "i": "img/m78182.webp", "s": false},
@@ -234,7 +228,6 @@
     {"ar": "مشروبات غازية", "en": "Soft Drink", "g": "cafe", "c": "img/cat-8933.webp", "compact": true, "items": [
       {"ar": "كوكا كولا", "en": "Coca-Cola", "d": "", "de": "", "p": 1000, "i": "img/m78273.webp", "s": false},
       {"ar": "سبرايت", "en": "Sprite", "d": "", "de": "", "p": 1000, "i": "img/m78274.webp", "s": false},
-      {"ar": "فانتا", "en": "Fanta", "d": "", "de": "", "p": 1000, "i": "img/m78275.webp", "s": false},
       {"ar": "كوكا كولا زيرو", "en": "Coca-Cola Zero", "d": "", "de": "", "p": 1000, "i": "img/m78276.webp", "s": false},
       {"ar": "صودا", "en": "Soda", "d": "", "de": "", "p": 2000, "i": "img/m78277.webp", "s": false},
       {"ar": "صودة بيرير", "en": "Perrier", "d": "", "de": "", "p": 4000, "i": "img/m78278.webp", "s": false},

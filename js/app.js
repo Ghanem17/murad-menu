@@ -9,6 +9,7 @@ const cur = () => L === 'ar' ? 'د.ع' : 'IQD';
 const price = p => p ? num(p) + ' ' + cur() : (L === 'ar' ? 'حسب الطلب' : 'On request');
 const nm = o => L === 'ar' ? o.ar : (o.en || o.ar), alt = o => L === 'ar' ? o.en : o.ar;
 const ds = o => L === 'ar' ? o.d : (o.de || o.d);
+const note = o => o.n ? `<span class="note">${esc(L === 'ar' ? o.n : (o.ne || o.n))}</span>` : '';
 const T = {best: ['الأكثر مبيعاً', 'Best Sellers'], sig: ['توقيع مراد', 'Signature'], ask: ['حسب<br>الطلب', 'On<br>request'], q: ['دوّر على طبق…', 'Search a dish…']};
 const t = k => T[k][L === 'ar' ? 0 : 1];
 // search ignores diacritics and common Arabic letter variants
@@ -17,7 +18,7 @@ const norm = s => String(s || '').toLowerCase().replace(/[ً-ْـ]/g, '').replac
 function seal(p) { return p ? `<span class="seal">${num(p)}<i>${cur()}</i></span>` : `<span class="seal ask">${t('ask')}</span>`; }
 function dish(it, s, si, ii) {
   const q = norm([it.ar, it.en, s.ar, s.en].join(' '));
-  return `<button class="dish${it.i ? '' : ' nophoto'}" data-k="${si}|${ii}" data-q="${esc(q)}">${it.i ? `<span class="pl"><img src="${it.i}" alt="" loading="lazy"></span>` : ''}${seal(it.p)}${it.s && !s.compact ? `<span class="sig">${t('sig')}</span>` : ''}<b>${esc(nm(it))}</b><small>${esc(alt(it))}</small></button>`;
+  return `<button class="dish${it.i ? '' : ' nophoto'}" data-k="${si}|${ii}" data-q="${esc(q)}">${it.i ? `<span class="pl"><img src="${it.i}" alt="" loading="lazy"></span>` : ''}${seal(it.p)}${it.s && !s.compact ? `<span class="sig">${t('sig')}</span>` : ''}<b>${esc(nm(it))}</b><small>${esc(alt(it))}</small>${note(it)}</button>`;
 }
 function render() {
   BEST = DATA.flatMap((s, si) => s.items.map((it, ii) => [s, si, it, ii]).filter(x => x[2].best));
@@ -61,7 +62,7 @@ function serve(k) {
   const [si, ii] = k.split('|').map(Number), s = DATA[si], it = s.items[ii], d = ds(it);
   const x = '<button class="x" id="x" aria-label="close">×</button>';
   $('#serve').innerHTML = `${it.i ? `<div class="photo">${x}<img src="${it.i}" alt="${esc(nm(it))}"></div>` : ''}<div class="card${it.i ? '' : ' solo'}">${it.i ? '' : x}
-    <h4>${esc(nm(it))}</h4><div class="alt">${esc(alt(it))}</div>${d ? `<p class="ds">${esc(d)}</p>` : ''}
+    <h4>${esc(nm(it))}</h4><div class="alt">${esc(alt(it))}</div>${note(it)}${d ? `<p class="ds">${esc(d)}</p>` : ''}
     <div class="row"><span class="pr">${it.p ? num(it.p) + `<i>${cur()}</i>` : price(0)}</span></div></div>`;
   $('#serve').scrollTop = 0;
   requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.add('open')));
