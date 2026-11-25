@@ -98,7 +98,7 @@ section.sec{padding:0 14px;scroll-margin-top:170px}
 .grid.small{grid-template-columns:repeat(3,1fr);gap:46px 10px;padding-top:44px}
 .grid.small .dish{padding:56px 6px 10px;border-radius:18px}
 .grid.small .pl{width:84px;height:84px;margin-left:-42px;top:-38px}
-.grid.small .seal{width:40px;height:40px;font-size:9.5px;top:28px;inset-inline-end:-4px}
+.grid.small .seal{width:40px;height:40px;font-size:9.5px;top:14px;inset-inline-end:-4px}
 .grid.small .seal i{font-size:7.5px}
 .grid.small b{font-size:12.5px}
 .grid.small small{display:none}
